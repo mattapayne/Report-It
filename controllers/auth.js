@@ -1,10 +1,6 @@
 var passport = require('passport');
 
-function login(req, res) {
-  res.render('auth/login');
-}
-
-function processLogin(req, res, next) {
+function login(req, res, next) {
   passport.authenticate('local', { successRedirect: '/dashboard',
                                  failureRedirect: '/login',
                                  failureFlash: true })(req, res, next);
@@ -17,4 +13,3 @@ function logout(req, res) {
 
 exports.login = login;
 exports.logout = logout;
-exports.processLogin = processLogin;

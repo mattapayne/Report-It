@@ -31,8 +31,8 @@ function boot() {
      next();
   });
   
-  InspectoryLy.app.use(express.static(path.join(InspectoryLy.rootDirectory, 'public')));
   InspectoryLy.app.use(require('stylus').middleware(InspectoryLy.rootDirectory + '/public'));
+  InspectoryLy.app.use(express.static(path.join(InspectoryLy.rootDirectory, 'public')));
   InspectoryLy.app.use(InspectoryLy.app.router);
   
   // development only

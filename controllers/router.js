@@ -13,9 +13,10 @@ Router.prototype.init = function() {
   var app = InspectoryLy.app;
   
   app.get('/', main.landing);
-  app.get('/login', mustNotBeLoggedIn, auth.login);
+  app.get('/about', main.about);
+  app.get('/contact', main.contact);
   app.get('/logout', auth.logout);
-  app.post('/login/process', mustNotBeLoggedIn, auth.processLogin);
+  app.post('/login', mustNotBeLoggedIn, auth.login);
   app.get('/register', mustNotBeLoggedIn, reg.register);
   app.post('/register/process', mustNotBeLoggedIn, reg.processRegistration);
   app.get('/dashboard', mustBeLoggedIn, dash.index);

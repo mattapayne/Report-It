@@ -1,26 +1,27 @@
 extends ../layout
 
+block head-css
+  link(rel='stylesheet', href='/stylesheets/register.css')
+
 block content
-  h1 Register
-  form(method="POST", action="/register/process")
-    p
-        span First Name
-        input(type="text" name="firstname")
-    p
-        span Last Name
-        input(type="text" name="lastname")
-    p
-        span Email
-        input(type="text", name="email")
-    p
-        span Password
-        input(type="password" name="password")
-    p
-        span Password Confirmation
-        input(type="password" name="password_confirmation")
-    p
-        button(type="submit" value="register") Register
-    
-  div#existing-user
-    span Already registered?  
-        a(href='/login') Login
+  div.jumbotron
+    h3 Sign up!
+  div.container.narrow-container
+    form(method="POST", action="/register/process", role='form').form-horizontal
+      div.form-group
+          label(for='firstname').control-label First Name
+          input(type="text" name="firstname" id='firstname').form-control
+      div.form-group
+          label(for='lastname').control-label Last Name
+          input(type="text" name="lastname", id='lastname').form-control
+      div.form-group
+          label(for='email').control-label Email
+          input(type="text", name="email", id='email').form-control
+      div.form-group
+          label(for='password').control-label Password
+          input(type="password" name="password" id='password').form-control
+      div.form-group
+          label(for='password-confirmation').control-label Password Confirmation
+          input(type="password" name="password_confirmation" id='password-confirmation').form-control
+      div.form-group
+        button(type="submit" value="register").btn.btn-success Register

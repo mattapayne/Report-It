@@ -25,7 +25,7 @@ function processRegistration(req, res) {
 }
 
 function register(req, res) {
-  res.render('register/new')
+  res.render('register/new', {active_tab: 'register'})
 }
 
 exports.register = register;
