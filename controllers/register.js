@@ -1,10 +1,6 @@
 var passwordUtil = require('../utility/password');
     
-function Register() {
-    
-}
-
-Register.prototype.processRegistration = function(req, res) {
+function processRegistration(req, res) {
     
   var User = InspectoryLy.models("User");
   var password = req.body.password;
@@ -28,8 +24,9 @@ Register.prototype.processRegistration = function(req, res) {
   });
 }
 
-Register.prototype.register = function(req, res) {
+function register(req, res) {
   res.render('register/new')
 }
 
-exports.Register = new Register();
+exports.register = register;
+exports.processRegistration = processRegistration;

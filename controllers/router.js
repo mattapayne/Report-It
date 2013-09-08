@@ -1,7 +1,7 @@
-var main = require('./main').Main,
-  auth = require('./auth').Auth,
-  reg = require('./register').Register,
-  dash = require('./dashboard').Dashboard,
+var main = require('./main'),
+  auth = require('./auth'),
+  reg = require('./register'),
+  dash = require('./dashboard'),
   ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn,
   ensureLoggedOut = require('connect-ensure-login').ensureLoggedOut;
 

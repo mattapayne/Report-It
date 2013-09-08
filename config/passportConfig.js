@@ -1,11 +1,7 @@
 var passport = require('passport'),
 LocalStrategy = require('passport-local').Strategy;
 
-function PassportConfig() {
-    
-}
-
-PassportConfig.prototype.init = function() {
+function init() {
     
   var User = InspectoryLy.models("User");
   
@@ -37,4 +33,4 @@ PassportConfig.prototype.init = function() {
   });
 }
 
-exports.PassportConfig = new PassportConfig();
+exports.init = init;

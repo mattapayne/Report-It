@@ -1,9 +1,5 @@
-function Dashboard() {
-    
-}
-
-Dashboard.prototype.index = function(req, res) {
+function index(req, res) {
   res.render('dashboard/index', { title: 'Dashboard' });
 }
 
-exports.Dashboard = new Dashboard();
+exports.index = index;

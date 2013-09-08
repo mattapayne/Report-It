@@ -1,9 +1,3 @@
-function ModelRegistrar() {
-    
-}
-
-ModelRegistrar.prototype.init = function() {
+exports.init = function() {
   InspectoryLy.models = require('../models');
 }
-
-exports.ModelRegistrar = new ModelRegistrar();

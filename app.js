@@ -3,7 +3,7 @@ var http = require('http');
 //application global obj
 InspectoryLy = { rootDirectory : __dirname };
 
-var bootstrapper = require('./config/bootstrapper').Bootstrapper;
+var bootstrapper = require('./config/bootstrapper');
 bootstrapper.boot();
 
 http.createServer(InspectoryLy.app).listen(InspectoryLy.app.get('port'), function(){

@@ -1,9 +1,5 @@
-function Main() {
-
-}
-
-Main.prototype.landing = function(req, res) {
+function landing(req, res) {
   res.render('main/index', { title: 'Express' });
 }
 
-exports.Main = new Main();
+exports.landing = landing;

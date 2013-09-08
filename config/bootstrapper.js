@@ -2,15 +2,11 @@ var path = require('path'),
     flash = require('connect-flash'),
     express = require('express'),
     passport = require('passport'),
-    passportConfig = require('./passportConfig').PassportConfig,
-    modelRegistrar = require('./modelsSetup').ModelRegistrar,
-    dataStoreConfig = require('./dataStoreConfig').DataStoreConfig;
+    passportConfig = require('./passportConfig'),
+    modelRegistrar = require('./modelsSetup'),
+    dataStoreConfig = require('./dataStoreConfig');
 
-function Bootstrapper() {
-
-}
-
-Bootstrapper.prototype.boot = function() {
+function boot() {
 
   InspectoryLy.app = express();
   
@@ -54,4 +50,4 @@ Bootstrapper.prototype.boot = function() {
   router.init();
 }
 
-exports.Bootstrapper = new Bootstrapper();
+exports.boot = boot;

@@ -3,22 +3,22 @@ crypto = require('crypto');
 var SALT_LENGTH = 9;
 
 exports.createHash = function(password) {
-  var salt = generateSalt(SALT_LENGTH);
-  var hash = md5(password + salt);
+  var salt = _generateSalt(SALT_LENGTH);
+  var hash = _md5(password + salt);
   return salt + hash;
 }
 
 exports.validateHash = function(hash, password) {
   var salt = hash.substr(0, SALT_LENGTH);
-  var validHash = salt + md5(password + salt)
+  var validHash = salt + _md5(password + salt)
   return hash === validHash;
 }
 
-function md5(string) {
+function _md5(string) {
   return crypto.createHash('md5').update(string).digest('hex');
 }
 
-function generateSalt(len) {
+function _generateSalt(len) {
   var set = '0123456789abcdefghijklmnopqurstuvwxyzABCDEFGHIJKLMNOPQURSTUVWXYZ',
     setLen = set.length,
     salt = '';
