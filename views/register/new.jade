@@ -1,0 +1,26 @@
+extends ../layout
+
+block content
+  h1 Register
+  form(method="POST", action="/register/process")
+    p
+        span First Name
+        input(type="text" name="firstname")
+    p
+        span Last Name
+        input(type="text" name="lastname")
+    p
+        span Email
+        input(type="text", name="email")
+    p
+        span Password
+        input(type="password" name="password")
+    p
+        span Password Confirmation
+        input(type="password" name="password_confirmation")
+    p
+        button(type="submit" value="register") Register
+    
+  div#existing-user
+    span Already registered?  
+        a(href='/login') Login

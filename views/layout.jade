@@ -1,0 +1,13 @@
+doctype 5
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    div#login-status
+      if logged_in
+        a(href='/logout') Hi, #{ current_user.fullName() } (Logout)
+      else
+        a(href='/login') Login
+      end
+    block content
