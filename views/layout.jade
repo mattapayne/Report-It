@@ -1,7 +1,8 @@
-doctype 5
+doctype HTML
 html
   head
     title= title
+    
     link(rel='stylesheet', href='/lib//bootstrap-3.0.0/dist/css/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
     block head-css
@@ -10,45 +11,46 @@ html
     block head-js
   body
     div.navbar.navbar-inverse.navbar-fixed-top
-      div.container
-        div.navbar-header
+      div.navbar-inner
+        div.container
           button(type='button', data-toggle='collapse', data-target='.navbar-collapse').navbar-toggle
             span.icon-bar
             span.icon-bar
             span.icon-bar
           a.navbar-brand Inspector.ly
-        div.navbar-collapse.collapse
-          ul.nav.navbar-nav
-            if active_tab === 'home'
-              li.active
-                a(href='/') Home
+          div.navbar-collapse.collapse
+            ul.nav.navbar-nav
+              if active_tab === 'home'
+                li.active
+                  a(href='/') Home
+              else
+                li
+                  a(href='/') Home
+              if active_tab === 'about'
+                li.active
+                  a(href='/about') About
+              else
+                li
+                  a(href='/about') About
+              if active_tab === 'contact'
+                li.active
+                  a(href='/contact') Contact
+              else
+                li
+                  a(href='/contact') Contact
+            if logged_in
+              ul.nav.navbar-nav.navbar-right
+                li
+                  a(href='/logout') Logout
             else
-              li
-                a(href='/') Home
-            if active_tab === 'about'
-              li.active
-                a(href='/about') About
-            else
-              li
-                a(href='/about') About
-            if active_tab === 'contact'
-              li.active
-                a(href='/contact') Contact
-            else
-              li
-                a(href='/contact') Contact
-          if logged_in
-            ul.nav.navbar-nav.navbar-right
-              li
-                a(href='/logout') Logout
-          else
-            form(action='/login', method='post').navbar-form.navbar-right
-              div.form-group.right-pad
-                input(type='text', placeholder='Email', name='username').form-control
-              div.form-group.right-pad
-                input(type='password', placeholder='Password', name='password').form-control
-              button(type='submit').btn.btn-success Sign in
-            ul.nav.navbar-nav.navbar-right
-              li
-                a(href='/register') Register
-    block content
+              form(action='/login', method='post').navbar-form.navbar-right
+                div.form-group.right-pad
+                  input(type='text', placeholder='Email', name='username').form-control
+                div.form-group.right-pad
+                  input(type='password', placeholder='Password', name='password').form-control
+                button(type='submit').btn.btn-success Sign in
+              ul.nav.navbar-nav.navbar-right
+                li
+                  a(href='/register') Register
+    div.main
+      block content

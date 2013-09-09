@@ -1,0 +1,16 @@
+#user-actions ul {
+  list-style-type: none;
+}
+#user-actions ul li {
+  padding: 5px;
+  border-bottom: 1px solid #dcdcdc;
+}
+#user-actions ul span,
+#user-actions ul a {
+  margin-right: 2px;
+}
+#snippets-container .snippet-content {
+  padding: 5px;
+  background-color: #dcdcdc;
+  border: 1px solid Grey;
+}

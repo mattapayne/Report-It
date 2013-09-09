@@ -1,7 +1,16 @@
 extends ../layout
 
+block head-css
+  link(rel='stylesheet', href='/stylesheets/dashboard.css')
+
+block head-js
+  script(type='text/javascript', src='/javascripts/dashboard.js')
+
 block content
-  div.jumbotron
-    h3 Dashboard
-  div.container
-    p Welcome to #{title}, #{ current_user.fullName() }
+    div#user-actions.row
+      div.col-md-6
+        include _reports
+        include _report_templates
+      div.col-md-6
+        include _snippets
+        include _organizations

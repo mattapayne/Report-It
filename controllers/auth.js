@@ -2,7 +2,7 @@ var passport = require('passport');
 
 function login(req, res, next) {
   passport.authenticate('local', { successRedirect: '/dashboard',
-                                 failureRedirect: '/login',
+                                 failureRedirect: '/',
                                  failureFlash: true })(req, res, next);
 }
 
