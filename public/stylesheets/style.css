@@ -1,5 +1,5 @@
 body {
-  padding: 60px;
+  padding: 20px;
 }
 .right-pad {
   margin-right: 2px;
@@ -16,5 +16,11 @@ body {
   text-align: center;
 }
 .top-margin5 {
+  margin-top: 5px;
+}
+.main {
+  margin-top: 60px;
+}
+.spacer5 {
   margin-top: 5px;
 }

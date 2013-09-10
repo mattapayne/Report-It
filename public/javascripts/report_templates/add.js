@@ -23,7 +23,7 @@ $(function() {
     
     $("#snippets-container").delegate("a.snippet-name", "click", function(e) {
         e.preventDefault();
-        var siblings = $(this).siblings("div.snippet-content");
+        var siblings = $(this).siblings("div.snippet-actual");
         
         if (siblings.hasClass("hidden")) {
             siblings.removeClass("hidden");

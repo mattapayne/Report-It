@@ -5,21 +5,21 @@ function processRegistration(req, res) {
   var User = InspectoryLy.models("User");
   var password = req.body.password;
   
-  var data = {
+  var hash = {
     firstName: req.body.firstname,
     lastName: req.body.lastname,
     email: req.body.email,
     hashed_password: passwordUtil.createHash(password)
   };
   
-  var user = new User(data);
+  var user = new User(hash);
   
   user.save(function(err, data) {
     if(err) {
       res.send(err);
     }
     else {
-      res.redirect('auth/login');
+      res.redirect('/');
     }
   });
 }

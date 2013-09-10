@@ -11,10 +11,18 @@ div.panel.panel-default
             div.row
                 div.col-lg-12
                     label(for='organization_id').control-label Organization
+                    small &nbsp;
+                        a(href='#', id='add-organization') (Create one)
             div.row
                 div.col-lg-12
                     div#organizations-select-container
                         div.loading
+            div.row
+                div.col-lg-12
+                    label(for='template_description').control-label Description
+            div.row
+                div.col-lg-12
+                    textarea(name='template_description', id='template_description', rows='6').form-control
             div.row
                 div.col-lg-12.top-margin5
                     button(type='submit').btn.btn-success.form-control Save

@@ -39,10 +39,16 @@ Router.prototype.init = function() {
   app.all('/organizations/*', mustBeLoggedIn);
   app.get('/organizations', organizations.index);
   app.get('/organizations/as_select', organizations.asSelect);
+  app.post('/organizations/create', organizations.create);
+  app.delete('/organizations/destroy/:id', organizations.destroy);
+  app.put('/organizations/update/:id', organizations.update);
   
   app.all('/snippets/*', mustBeLoggedIn);
   app.get('/snippets', snippets.index);
   app.get('/snippets/with_content', snippets.withContent);
+  app.delete('/snippets/destroy/:id', snippets.destroy);
+  app.post('/snippets/create', snippets.create);
+  app.put('/snippets/update/:id', snippets.update);
 }
 
 function mustBeLoggedIn(req, res, next) {

@@ -1,6 +1,6 @@
 li
-    span #{report_template.name}
+    span(title='#{report_template.description}') #{report_template.name}
     div.pull-right
-        a(href='report_templates/#{report_template.id}/edit').btn.btn-default Edit
-        a(href='report_templates/#{report_template.id}/delete').btn.btn-danger Delete
+        a(href='report_templates/edit/#{report_template.id}').btn.btn-default Edit
+        a(href='report_templates/delete/#{report_template.id}').btn.btn-danger Delete
     div.clear

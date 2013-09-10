@@ -1,4 +1,5 @@
 select(name='organization_id', id='organization_id').form-control
+    option --None--
     - organizations.forEach(function(o) {
         option(value='#{o.id}') #{o.name}
     - })

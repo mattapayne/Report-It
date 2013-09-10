@@ -6,8 +6,11 @@ html
     link(rel='stylesheet', href='/lib//bootstrap-3.0.0/dist/css/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
     block head-css
-    script(type='text/javascript', src='/lib/jquery-ui-1.10.3/js/jquery-1.9.1.js')
+    script(type='text/javascript', src='/lib/jquery-1.9.1.js')
+    script(type='text/javascript', src='/lib/underscore-min.js')
     script(type='text/javascript', src='/lib/bootstrap-3.0.0/dist/js/bootstrap.min.js')
+    script(type='text/javascript', src='/lib/angular.min.js')
+    script(type='text/javascript', src='/lib/angular-sanitize.js')
     block head-js
   body
     div.navbar.navbar-inverse.navbar-fixed-top
@@ -17,7 +20,8 @@ html
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.navbar-brand Inspector.ly
+          a(href='/').navbar-brand
+            img(src='/images/logo.png')
           div.navbar-collapse.collapse
             ul.nav.navbar-nav
               if active_tab === 'home'
@@ -42,6 +46,9 @@ html
               ul.nav.navbar-nav.navbar-right
                 li
                   a(href='/logout') Logout
+                li
+                  if active_tab !== 'dashboard'
+                    a(href='/dashboard') Dashboard
             else
               form(action='/login', method='post').navbar-form.navbar-right
                 div.form-group.right-pad
@@ -54,3 +61,4 @@ html
                   a(href='/register') Register
     div.main
       block content
+    block foot-js

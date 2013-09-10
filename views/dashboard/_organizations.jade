@@ -1,7 +1,42 @@
 div.panel.panel-default
     div.panel-heading Organizations
     div.panel-body
-        div.container
+        div(ng-controller='OrganizationController').container
             div#organizations-container
-                div.loading
-            a(href='/organizations/add').btn.btn-success.pull-right Add
+                div(ng-show='isError()').alert.alert-danger.alert-dismissable
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    strong {{ errors.message }}
+                    ol
+                        li(ng-repeat="error in errors.errors | orderBy:name:false")
+                            span {{ error.name }} is {{ error.type }}
+                ul
+                    li(ng-repeat="organization in organizations | orderBy:name:false")
+                        span {{organization.name}}
+                        div.pull-right
+                            a(ng-click='edit($index)').btn.btn-default Edit
+                            a(ng-click='destroy($index)').btn.btn-danger Delete
+                        div.clearfix
+                        div(ng-show='editing($index)').spacer5
+                            div.panel.panel-default
+                                div.panel-heading Edit Organization
+                                    <button type="button" class="close" aria-hidden="true" ng-click='stopEditing($index)'>&times;</button>
+                                div.panel-body
+                                    div.form-group
+                                        input(type='text', name='name', id='name', placeholder='Organization name', ng-model='organization.name').form-control
+                                    div.form-group
+                                        div.pull-right
+                                            a(ng-click='update($index)').btn.btn-success.btn-xs Update
+                        div.clearfix
+                    li(ng-show='adding')
+                        div.panel.panel-default
+                            div.panel-heading Create an Organization
+                                 <button type="button" class="close" aria-hidden="true" ng-click='stopAdd()'>&times;</button>
+                            div.panel-body
+                                div.form-group
+                                    input(type='text', name='name', id='name', placeholder='Organization name', ng-model='organizationName').form-control
+                                div.form-group
+                                    div.pull-right
+                                        a(ng-click='create()').btn.btn-success.btn-xs Create
+                                div.form-group &nbsp;
+                    div.clearfix
+            a(ng-click='startAdd()', ng-hide='adding').btn.btn-success.pull-right Add

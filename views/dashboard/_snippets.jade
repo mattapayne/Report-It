@@ -1,7 +1,47 @@
 div.panel.panel-default
     div.panel-heading Snippets
     div.panel-body
-        div.container
+        div(ng-controller='SnippetsController').container
             div#snippets-container
-                div.loading
-            a(href='/snippets/add').btn.btn-success.pull-right Add
+                div(ng-show='isError()').alert.alert-danger.alert-dismissable
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    strong {{ errors.message }}
+                    ol
+                        li(ng-repeat="error in errors.errors | orderBy:name:false")
+                            span {{ error.name }} is {{ error.type }}
+                ul
+                    li(ng-repeat="snippet in snippets | orderBy:name:false")
+                        span {{snippet.name}}
+                        div.pull-right
+                            a(ng-click='edit($index)').btn.btn-default Edit
+                            a(ng-click='destroy($index)').btn.btn-danger Delete
+                        div.clearfix
+                        div(ng-show='editing($index)').spacer5
+                            div.panel.panel-default
+                                div.panel-heading Edit Snippet
+                                    <button type="button" class="close" aria-hidden="true" ng-click='stopEditing($index)'>&times;</button>
+                                div.panel-body
+                                    div.form-group
+                                        input(type='text', name='name', id='name', placeholder='Snippet name', ng-model='snippet.name').form-control
+                                    div.form-group    
+                                        textarea(name='content', id='content', placeholder='Snippet content', rows='4', ng-model='snippet.content').form-control
+                                    div.form-group
+                                        div.pull-right
+                                            a(ng-click='update($index)').btn.btn-success.btn-xs Update
+                        div.clearfix
+                    li(ng-show='adding')
+                        div.panel.panel-default
+                            div.panel-heading Create a Snippet
+                                 <button type="button" class="close" aria-hidden="true" ng-click='stopAdd()'>&times;</button>
+                            div.panel-body
+                                div.form-group
+                                    input(type='text', name='name', id='name', placeholder='Snippet name', ng-model='snippetName').form-control
+                                div.form-group    
+                                    textarea(name='content', id='content', placeholder='Snippet content', rows='4', ng-model='snippetContent').form-control
+                                div.form-group
+                                    div.pull-right
+                                        a(ng-click='create()').btn.btn-success.btn-xs Create
+                                div.form-group &nbsp;
+                    div.clearfix
+            a(ng-click='startAdd()', ng-hide='adding').btn.btn-success.pull-right Add
+               

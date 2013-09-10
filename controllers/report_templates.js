@@ -1,9 +1,14 @@
+var ReportTemplate = InspectoryLy.models("ReportTemplate");
+
 exports.index = function(req, res) {
-    var report_templates = [
-        { name: "Template #1", id: 1 },
-        { name: "Template #2", id: 2 }
-    ];
-    res.render('report_templates/_index', { report_templates: report_templates });
+    ReportTemplate.find({}, function(err, docs) {
+        if(!err) {
+            res.render('report_templates/_index', { report_templates: docs });
+        }
+        else {
+            res.send(err);
+        }
+    });
 }
 
 exports.add = function(req, res) {
@@ -11,6 +16,19 @@ exports.add = function(req, res) {
 }
 
 exports.create = function(req, res) {
-    //save the newly created template and redirect to the dashboard
-    res.redirect('/dashboard')
+    var hash = {
+        name: req.body.template_name,
+        description: req.body.template_description,
+        content: req.body.report_template_content,
+        created_by: req.user._id
+    }
+    var reportTemplate = new ReportTemplate(hash);
+    reportTemplate.save(function(err, data) {
+        if(err) {
+            res.send(err);
+        }
+        else {
+        res.redirect('/dashboard');
+        }
+  });
 }
