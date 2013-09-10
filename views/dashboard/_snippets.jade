@@ -3,18 +3,12 @@ div.panel.panel-default
     div.panel-body
         div(ng-controller='SnippetsController').container
             div#snippets-container
-                div(ng-show='isError()').alert.alert-danger.alert-dismissable
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    strong {{ errors.message }}
-                    ol
-                        li(ng-repeat="error in errors.errors | orderBy:name:false")
-                            span {{ error.name }} is {{ error.type }}
                 ul
                     li(ng-repeat="snippet in snippets | orderBy:name:false")
                         span {{snippet.name}}
                         div.pull-right
-                            a(ng-click='edit($index)').btn.btn-default Edit
-                            a(ng-click='destroy($index)').btn.btn-danger Delete
+                            a(ng-click='edit($index)', ng-hide='editing($index)', ng-disabled='deleting($index)').btn.btn-default Edit
+                            a(ng-click='destroy($index)', ng-hide='editing($index)', ng-disabled='deleting($index)').btn.btn-danger Delete
                         div.clearfix
                         div(ng-show='editing($index)').spacer5
                             div.panel.panel-default
@@ -43,5 +37,5 @@ div.panel.panel-default
                                         a(ng-click='create()').btn.btn-success.btn-xs Create
                                 div.form-group &nbsp;
                     div.clearfix
-            a(ng-click='startAdd()', ng-hide='adding').btn.btn-success.pull-right Add
+            a(ng-click='startAdd()', ng-hide='adding', ng-hide='editingAny()').btn.btn-success.pull-right Add
                

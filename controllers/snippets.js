@@ -3,7 +3,7 @@ var errorParser = require('../utility/mongoose_error_parser');
 var Snippet = InspectoryLy.models("Snippet");
 
 function findAll(req, res, callback) {
-    Snippet.findAllSortedByName(function(err, orgs) {
+    Snippet.findAllSortedByName(res.user._id, function(err, orgs) {
         if(err) {
             res.send(400, errorParser.parse(err));
         }

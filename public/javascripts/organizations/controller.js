@@ -1,61 +1,77 @@
 angular.module('inspectory.ly.dashboard.controllers').
     controller('OrganizationController', ['$scope', 'Organization', function($scope, Organization) {
-        
+        var self = this;
+        $scope.organizationsBeingEdited = {};
+        $scope.organizationsBeingDeleted = [];
         $scope.adding = false;
-        $scope.editingIndices = [];
         $scope.organizationName = "";
         $scope.organizations = [];
-        $scope.errors = null;
         
         Organization.all().success(function(organizations) {
            $scope.organizations = organizations; 
         });
         
-        $scope.isError = function() {
-            return $scope.errors !== null;  
+        self.backupOrganization = function(index) {
+            var organization = $scope.organizations[index];
+            $scope.organizationsBeingEdited[index] = angular.copy(organization);
+        };
+        
+        //since there is no 'finally' construct in Angular's promise returned by $http, we have to duplicate some code.
+        self.deleteOrganization = function(index, organization) {
+            Organization.destroy(organization).success(function() {
+                $scope.organizations.splice(index, 1);
+                $scope.organizationsBeingDeleted =
+                    _.reject($scope.organizationsBeingDeleted, function(num) {
+                        return num === index
+                });
+                }).error(function() {
+                    $scope.organizationsBeingDeleted =
+                        _.reject($scope.organizationsBeingDeleted, function(num) {
+                            return num === index
+                    });
+                });
         };
         
         $scope.edit = function(index) {
-            $scope.editingIndices.push(index);
-            $scope.errors = null;
+            self.backupOrganization(index);
         };
         
         $scope.editing = function(index) {
-            return _.contains($scope.editingIndices, index);
+            return index in $scope.organizationsBeingEdited;
+        };
+        
+        $scope.deleting = function(index) {
+            return _.contains($scope.organizationsBeingDeleted, index);
+        };
+        
+        $scope.editingAny = function() {
+            return !_.isEmpty($scope.organizationsBeingEdited);
         };
         
         $scope.stopEditing = function(index) {
-            var indexOfItemToRemove = $scope.editingIndices.indexOf(index);
-            if (indexOfItemToRemove != -1) {
-                $scope.editingIndices.splice(indexOfItemToRemove, 1);
-            }
+            delete $scope.organizationsBeingEdited[index];
         };
         
         $scope.update = function(index) {
             var organization = $scope.organizations[index];
             Organization.update(organization).success(function() {
                 $scope.stopEditing(index);
-                $scope.errors = null;
-            }).error(function(data, status, headers, config) {
-                $scope.errors = data;    
+            }).error(function() {
+                var original = $scope.organizationsBeingEdited[index];
+                $scope.organizations[index] = angular.copy(original);
             });
         };
        
         $scope.destroy = function(index) {
             var organization = $scope.organizations[index];
             if (confirm("Are you sure?")) {
-                Organization.destroy(organization).success(function() {
-                    $scope.organizations.splice(index, 1);
-                    $scope.errors = null;
-                }).error(function(data, status, headers, config) {
-                    $scope.errors = data;    
-                });
+                $scope.organizationsBeingDeleted.push(index);
+                self.deleteOrganization(index, organization);
             }
         };
         
         $scope.startAdd = function() {
             $scope.adding = true;
-            $scope.errors = null;
         };
         
         $scope.stopAdd = function() {
@@ -68,9 +84,6 @@ angular.module('inspectory.ly.dashboard.controllers').
             Organization.create(organization).success(function(org) {
                 $scope.organizations.push(org);
                 $scope.stopAdd();
-                $scope.errors = null;
-            }).error(function(data, status, headers, config) {
-                $scope.errors = data;    
             });
         };
     }]

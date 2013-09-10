@@ -1,7 +1,8 @@
+var errorParser = require('../utility/mongoose_error_parser');
 var ReportTemplate = InspectoryLy.models("ReportTemplate");
 
 exports.index = function(req, res) {
-    ReportTemplate.find({}, function(err, docs) {
+    ReportTemplate.find({created_by: req.user._id}, function(err, docs) {
         if(!err) {
             res.render('report_templates/_index', { report_templates: docs });
         }
@@ -12,7 +13,7 @@ exports.index = function(req, res) {
 }
 
 exports.add = function(req, res) {
-    res.render('report_templates/add');
+    res.render('report_templates/add', { report_template: { name: "", description: "", content: ""} });
 }
 
 exports.create = function(req, res) {
@@ -23,12 +24,14 @@ exports.create = function(req, res) {
         created_by: req.user._id
     }
     var reportTemplate = new ReportTemplate(hash);
+    
     reportTemplate.save(function(err, data) {
         if(err) {
-            res.send(err);
+            console.log(errorParser.parse(err));
+            res.render('report_templates/add', { report_template: reportTemplate, validation_errors: errorParser.parse(err) });
         }
         else {
-        res.redirect('/dashboard');
+            res.redirect('/dashboard');
         }
   });
 }

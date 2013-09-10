@@ -3,18 +3,12 @@ div.panel.panel-default
     div.panel-body
         div(ng-controller='OrganizationController').container
             div#organizations-container
-                div(ng-show='isError()').alert.alert-danger.alert-dismissable
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    strong {{ errors.message }}
-                    ol
-                        li(ng-repeat="error in errors.errors | orderBy:name:false")
-                            span {{ error.name }} is {{ error.type }}
                 ul
                     li(ng-repeat="organization in organizations | orderBy:name:false")
                         span {{organization.name}}
                         div.pull-right
-                            a(ng-click='edit($index)').btn.btn-default Edit
-                            a(ng-click='destroy($index)').btn.btn-danger Delete
+                            a(ng-click='edit($index)', title='Edit this organization', ng-disabled='deleting($index)', ng-hide='editing($index)').btn.btn-default Edit
+                            a(ng-click='destroy($index)', title='Delete this organization', ng-disabled='deleting($index)', ng-hide='editing($index)').btn.btn-danger Delete
                         div.clearfix
                         div(ng-show='editing($index)').spacer5
                             div.panel.panel-default
@@ -36,7 +30,7 @@ div.panel.panel-default
                                     input(type='text', name='name', id='name', placeholder='Organization name', ng-model='organizationName').form-control
                                 div.form-group
                                     div.pull-right
-                                        a(ng-click='create()').btn.btn-success.btn-xs Create
+                                        a(ng-click='create()', title='Create this organization').btn.btn-success.btn-xs Create
                                 div.form-group &nbsp;
                     div.clearfix
-            a(ng-click='startAdd()', ng-hide='adding').btn.btn-success.pull-right Add
+            a(ng-click='startAdd()', ng-hide='adding', title='Add a new organization', ng-hide='editingAny()').btn.btn-success.pull-right Add

@@ -1,15 +1,12 @@
 var passport = require('passport');
 
-function login(req, res, next) {
+exports.login = function(req, res, next) {
   passport.authenticate('local', { successRedirect: '/dashboard',
                                  failureRedirect: '/',
                                  failureFlash: true })(req, res, next);
 }
 
-function logout(req, res) {
+exports.logout = function(req, res) {
   req.logout();
   res.redirect('/');
 }
-
-exports.login = login;
-exports.logout = logout;

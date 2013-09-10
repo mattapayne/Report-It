@@ -18,8 +18,8 @@ var Snippet = new Schema({
   content: {type: String, required: true, trim: true, validate: contentValidation }
 });
 
-Snippet.statics.findAllSortedByName = function(callback) {
-  return this.find({}, null, {sort: {name: 1}}, callback);
+Snippet.statics.findAllSortedByName = function(userId, callback) {
+  return this.find({created_by: userId}, null, {sort: {name: 1}}, callback);
 };
 
 Snippet.methods.hasChanges = function(name, content) {

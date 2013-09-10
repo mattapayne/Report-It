@@ -7,7 +7,7 @@ div.panel.panel-default
                     label(for='template_name').control-label Template Name
             div.row
                 div.col-lg-12
-                    input(type='text', name='template_name', id='template_name', placeholder='Name this template').form-control
+                    input(type='text', value='#{ report_template.name }' name='template_name', id='template_name', placeholder='Name this template').form-control
             div.row
                 div.col-lg-12
                     label(for='organization_id').control-label Organization
@@ -22,7 +22,7 @@ div.panel.panel-default
                     label(for='template_description').control-label Description
             div.row
                 div.col-lg-12
-                    textarea(name='template_description', id='template_description', rows='6').form-control
+                    textarea(name='template_description', id='template_description', rows='6').form-control #{ report_template.description }
             div.row
                 div.col-lg-12.top-margin5
                     button(type='submit').btn.btn-success.form-control Save

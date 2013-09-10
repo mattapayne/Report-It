@@ -9,8 +9,8 @@ var Organization = new Schema({
   members: [{ type: ObjectId, ref: 'users'}]
 });
 
-Organization.statics.findAllSortedByName = function(callback) {
-  return this.find({}, null, {sort: {name: 1}}, callback);
+Organization.statics.findAllSortedByName = function(userId, callback) {
+  return this.find({created_by: userId}, null, {sort: {name: 1}}, callback);
 };
 
 Organization.methods.hasChanges = function(name) {

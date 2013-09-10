@@ -4,4 +4,4 @@ angular.module('inspectory.ly.dashboard.controllers', []);
 angular.module('inspectory.ly.dashboard',
                ['inspectory.ly.dashboard.services',
                 'inspectory.ly.dashboard.controllers',
-                'ngSanitize']);
+                'ngSanitize', 'globalErrors']);

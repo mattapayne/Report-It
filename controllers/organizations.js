@@ -3,7 +3,7 @@ var errorParser = require('../utility/mongoose_error_parser');
 var Organization = InspectoryLy.models("Organization");
 
 function findAll(req, res, callback) {
-    Organization.findAllSortedByName(function(err, orgs) {
+    Organization.findAllSortedByName(res.user._id, function(err, orgs) {
         if(err) {
             res.send(400, errorParser.parse(err));
         }
