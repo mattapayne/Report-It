@@ -4,6 +4,7 @@ div.panel.panel-default
         div(ng-controller='OrganizationController').container
             div#organizations-container
                 ul
+                    li(ng-hide='organizations.length > 0') You have not created any organizations.
                     li(ng-repeat="organization in organizations | orderBy:name:false")
                         span {{organization.name}}
                         div.pull-right

@@ -4,6 +4,7 @@ div.panel.panel-default
         div(ng-controller='SnippetsController').container
             div#snippets-container
                 ul
+                    li(ng-hide='snippets.length > 0') You have not created any snippets.
                     li(ng-repeat="snippet in snippets | orderBy:name:false")
                         span {{snippet.name}}
                         div.pull-right
