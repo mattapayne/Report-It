@@ -1,8 +1,12 @@
 $(function() {
-    CKEDITOR.replace('editor', {
-        height: 700,
-        resize_minHeight: 700,
-        autoGrow_minHeight: 700
+
+    $("#editor").redactor({
+        imageUpload : '/images/upload',
+        clipboardUploadUrl: '/images/upload/',
+        focus: true,
+        minHeight: 500,
+        linebreaks: true,
+        paragraphy: false
     });
     
     var loadSnippets = $.ajax('/snippets/with_content', { dataType: 'html' });

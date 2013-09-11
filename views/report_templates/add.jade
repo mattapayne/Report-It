@@ -1,10 +1,12 @@
 extends ../layout
 
 block head-css
+    link(rel='stylesheet', href='/lib/redactor/redactor.css')
     link(rel='stylesheet', href='/stylesheets/dashboard.css')
 
 block head-js
-    script(type='text/javascript', src='/lib/ckeditor/ckeditor.js')
+    //script(type='text/javascript', src='/lib/ckeditor/ckeditor.js')
+    script(type='text/javascript', src='/lib/redactor/redactor.min.js')
     script(type='text/javascript', src='/javascripts/report_templates/add.js')
 
 block content
