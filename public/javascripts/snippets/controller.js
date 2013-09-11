@@ -1,4 +1,4 @@
-angular.module('InspectIt.dashboard.controllers').
+angular.module('ReportIt.dashboard.controllers').
     controller('SnippetsController', ['$scope', 'Snippet', function($scope, Snippet) {
         var self = this;
         $scope.adding = false;

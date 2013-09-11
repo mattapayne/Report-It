@@ -1,15 +1,11 @@
-function landing(req, res) {
-  res.render('main/index', { title: 'Inspect-It :: Home', active_tab: 'home' });
+exports.landing = function landing(req, res) {
+  res.render('main/index', { title: 'Report-It :: Home', active_tab: 'home' });
 }
 
-function about(req, res) {
-  res.render('main/about', { title: 'Inspect-It :: Home', active_tab: 'about' });
+exports.about = function about(req, res) {
+  res.render('main/about', { title: 'Report-It :: Home', active_tab: 'about' });
 }
 
-function contact(req, res) {
-  res.render('main/contact', { title: 'Inspect-It :: Home', active_tab: 'contact' });
+exports.contact = function contact(req, res) {
+  res.render('main/contact', { title: 'Report-It :: Home', active_tab: 'contact' });
 }
-
-exports.landing = landing;
-exports.contact = contact;
-exports.about = about;

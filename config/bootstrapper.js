@@ -9,28 +9,28 @@ var path = require('path'),
 
 function boot() {
 
-  InspectIt.app = express();
+  ReportIt.app = express();
   
-  InspectIt.app.set('config', config[InspectIt.app.get('env')]);
-  InspectIt.app.set('port', process.env.PORT || 3000);
-  InspectIt.app.set('views', InspectIt.rootDirectory + '/views');
-  InspectIt.app.set('view engine', 'jade');
+  ReportIt.app.set('config', config[ReportIt.app.get('env')]);
+  ReportIt.app.set('port', process.env.PORT || 3000);
+  ReportIt.app.set('views', ReportIt.rootDirectory + '/views');
+  ReportIt.app.set('view engine', 'jade');
   
-  InspectIt.app.use(express.favicon());
-  InspectIt.app.use(express.logger('dev'));
-  InspectIt.app.use(express.bodyParser());
-  InspectIt.app.use(express.methodOverride());
-  InspectIt.app.use(express.cookieParser('monkeybutler'));
-  InspectIt.app.use(express.session({cookie: {
+  ReportIt.app.use(express.favicon());
+  ReportIt.app.use(express.logger('dev'));
+  ReportIt.app.use(express.bodyParser());
+  ReportIt.app.use(express.methodOverride());
+  ReportIt.app.use(express.cookieParser('monkeybutler'));
+  ReportIt.app.use(express.session({cookie: {
                                         maxAge: Date.now() + (30 * 60 * 1000),
                                         expires: new Date(Date.now() + (30 * 60 * 1000)) 
                                       }}));
-  InspectIt.app.use(flash());
-  InspectIt.app.use(passport.initialize());
-  InspectIt.app.use(passport.session());
+  ReportIt.app.use(flash());
+  ReportIt.app.use(passport.initialize());
+  ReportIt.app.use(passport.session());
   
   //set current user so views, etc. have access
-  InspectIt.app.use(function(req, res, next) {
+  ReportIt.app.use(function(req, res, next) {
      res.locals.current_user = req.user;
      res.locals.logged_in = req.user != null;
      var now = Date.now();
@@ -40,13 +40,13 @@ function boot() {
      next();
   });
   
-  InspectIt.app.use(require('stylus').middleware(InspectIt.rootDirectory + '/public'));
-  InspectIt.app.use(express.static(path.join(InspectIt.rootDirectory, 'public')));
-  InspectIt.app.use(InspectIt.app.router);
+  ReportIt.app.use(require('stylus').middleware(ReportIt.rootDirectory + '/public'));
+  ReportIt.app.use(express.static(path.join(ReportIt.rootDirectory, 'public')));
+  ReportIt.app.use(ReportIt.app.router);
   
   // development only
-  if ('development' == InspectIt.app.get('env')) {
-    InspectIt.app.use(express.errorHandler());
+  if ('development' == ReportIt.app.get('env')) {
+    ReportIt.app.use(express.errorHandler());
   }
   
   dataStoreConfig.init();
@@ -54,7 +54,7 @@ function boot() {
   passportConfig.init();
   
   //router must be the last to be loaded, since it relies on the 'app' being setup
-  var router = require(InspectIt.rootDirectory + '/controllers/router').Router;
+  var router = require(ReportIt.rootDirectory + '/controllers/router').Router;
   
   router.init();
 }

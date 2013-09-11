@@ -1,8 +1,8 @@
 var passwordUtil = require('../utility/password');
     
-function processRegistration(req, res) {
+exports.processRegistration = function processRegistration(req, res) {
     
-  var User = InspectIt.models("User");
+  var User = ReportIt.models("User");
   var password = req.body.password;
   
   var hash = {
@@ -24,9 +24,6 @@ function processRegistration(req, res) {
   });
 }
 
-function register(req, res) {
-  res.render('register/new', {active_tab: 'register', title: 'Inspect-It :: Register'})
+exports.register = function register(req, res) {
+  res.render('register/new', {active_tab: 'register', title: 'Report-It :: Register'})
 }
-
-exports.register = register;
-exports.processRegistration = processRegistration;

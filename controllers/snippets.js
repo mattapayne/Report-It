@@ -1,6 +1,6 @@
 var errorParser = require('../utility/mongoose_error_parser');
 
-var Snippet = InspectIt.models("Snippet");
+var Snippet = ReportIt.models("Snippet");
 
 function findAll(req, res, callback) {
     Snippet.findAllSortedByName(res.user._id, function(err, orgs) {

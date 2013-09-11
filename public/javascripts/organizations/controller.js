@@ -1,4 +1,4 @@
-angular.module('InspectIt.dashboard.controllers').
+angular.module('ReportIt.dashboard.controllers').
     controller('OrganizationController', ['$scope', 'Organization', function($scope, Organization) {
         var self = this;
         $scope.organizationsBeingEdited = {};

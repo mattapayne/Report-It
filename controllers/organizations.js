@@ -1,6 +1,6 @@
 var errorParser = require('../utility/mongoose_error_parser');
 
-var Organization = InspectIt.models("Organization");
+var Organization = ReportIt.models("Organization");
 
 function findAll(req, res, callback) {
     Organization.findAllSortedByName(res.user._id, function(err, orgs) {

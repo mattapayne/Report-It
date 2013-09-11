@@ -1,3 +1,3 @@
 exports.init = function() {
-  InspectIt.models = require('../models');
+  ReportIt.models = require('../models');
 }

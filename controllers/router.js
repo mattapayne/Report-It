@@ -14,7 +14,7 @@ function Router() {
 }
 
 Router.prototype.init = function() {
-  var app = InspectIt.app;
+  var app = ReportIt.app;
   
   app.get('/', main.landing);
   app.get('/about', main.about);
@@ -51,7 +51,6 @@ Router.prototype.init = function() {
   app.put('/snippets/update/:id', snippets.update);
   
   app.get('/session_keepalive', function(req, res) {
-    console.log("KEEP ALIVE");
     res.send(200);
   });
 }

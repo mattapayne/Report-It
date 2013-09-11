@@ -1,1 +1,1 @@
-The Inspect-It web app for QA/QC inspectors makes it easy to create inspection reports.
+The Report-It web app for QA/QC inspectors makes it easy to create inspection reports.

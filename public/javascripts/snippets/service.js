@@ -1,4 +1,4 @@
-angular.module('InspectIt.dashboard.services').
+angular.module('ReportIt.dashboard.services').
     factory('Snippet', ['$http', function($http) {
         return {
                 all: function() {
