@@ -49,6 +49,11 @@ Router.prototype.init = function() {
   app.delete('/snippets/destroy/:id', snippets.destroy);
   app.post('/snippets/create', snippets.create);
   app.put('/snippets/update/:id', snippets.update);
+  
+  app.get('/session_keepalive', function(req, res) {
+    console.log("KEEP ALIVE");
+    res.send(200);
+  });
 }
 
 function mustBeLoggedIn(req, res, next) {

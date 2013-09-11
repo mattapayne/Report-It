@@ -19,7 +19,10 @@ function boot() {
   InspectoryLy.app.use(express.bodyParser());
   InspectoryLy.app.use(express.methodOverride());
   InspectoryLy.app.use(express.cookieParser('monkeybutler'));
-  InspectoryLy.app.use(express.session());
+  InspectoryLy.app.use(express.session({cookie: {
+                                        maxAge: Date.now() + (30 * 60 * 1000),
+                                        expires: new Date(Date.now() + (30 * 60 * 1000)) 
+                                      }}));
   InspectoryLy.app.use(flash());
   InspectoryLy.app.use(passport.initialize());
   InspectoryLy.app.use(passport.session());
@@ -28,6 +31,10 @@ function boot() {
   InspectoryLy.app.use(function(req, res, next) {
      res.locals.current_user = req.user;
      res.locals.logged_in = req.user != null;
+     var now = Date.now();
+     var expires = req.session.cookie.expires;
+     var session_length = Math.abs(expires - now);
+      res.locals.session_length = session_length;
      next();
   });
   

@@ -52,6 +52,12 @@ angular.module('inspectory.ly.dashboard.controllers').
             delete $scope.organizationsBeingEdited[index];
         };
         
+        $scope.cancelEditing = function(index) {
+            var original = $scope.organizationsBeingEdited[index];
+            $scope.organizations[index] = angular.copy(original);
+            delete $scope.organizationsBeingEdited[index];
+        };
+        
         $scope.update = function(index) {
             var organization = $scope.organizations[index];
             Organization.update(organization).success(function() {

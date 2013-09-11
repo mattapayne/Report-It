@@ -53,6 +53,12 @@ angular.module('inspectory.ly.dashboard.controllers').
            delete $scope.snippetsBeingEdited[index];
         };
         
+        $scope.cancelEditing = function(index) {
+            var original = $scope.snippetsBeingEdited[index];
+            $scope.snippets[index] = angular.copy(original);
+            delete $scope.snippetsBeingEdited[index];
+        };
+        
         $scope.update = function(index) {
             var snippet = $scope.snippets[index];
             Snippet.update(snippet).success(function() {

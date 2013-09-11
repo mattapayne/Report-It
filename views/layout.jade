@@ -9,8 +9,13 @@ html
     script(type='text/javascript', src='/lib/jquery-1.9.1.js')
     script(type='text/javascript', src='/lib/underscore-min.js')
     script(type='text/javascript', src='/lib/bootstrap-3.0.0/dist/js/bootstrap.min.js')
-    script(type='text/javascript', src='/lib/angular.min.js')
-    script(type='text/javascript', src='/lib/angular-sanitize.js')
+    script(type='text/javascript', src='/lib/moment.min.js')
+    if logged_in
+      script(type='text/javascript').
+        window.session_length = #{session_length};
+      script(type='text/javascript', src='/lib/angular.min.js')
+      script(type='text/javascript', src='/lib/angular-sanitize.js')
+      script(type='text/javascript', src='/javascripts/site.js')
     block head-js
   body
     div.navbar.navbar-inverse.navbar-fixed-top
@@ -45,6 +50,8 @@ html
             if logged_in
               ul.nav.navbar-nav.navbar-right
                 li
+                  include common/_session_time_remaining
+                li
                   a(href='/logout') Logout
                 li
                   if active_tab !== 'dashboard'
@@ -61,4 +68,5 @@ html
                   a(href='/register') Register
     div.main
       block content
+      include common/_session_timeout
     block foot-js
