@@ -15,6 +15,20 @@ exports.index = function(req, res) {
     });
 }
 
+exports.edit = function(req, res) {
+    ReportTemplate.findById(req.params.id, function(err, templ) {
+       if(err) {
+            res.send(err);
+       }
+       else {
+            res.render('report_templates/edit', {
+                report_template: templ,
+                title: 'Report-It :: Edit Report Template'
+            });
+       }
+    });
+}
+
 exports.add = function(req, res) {
     res.render('report_templates/add', {
         report_template: {

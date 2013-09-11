@@ -34,6 +34,7 @@ Router.prototype.init = function() {
   app.all('/report_templates/*', mustBeLoggedIn);
   app.get('/report_templates', report_templates.index);
   app.get('/report_templates/add', report_templates.add);
+  app.get('/report_templates/edit/:id', report_templates.edit);
   app.post('/report_templates/create', report_templates.create);
   
   app.all('/organizations/*', mustBeLoggedIn);
