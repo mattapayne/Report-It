@@ -1,13 +1,11 @@
 {
-    'development': {
-        'mongodb': 'mongodb://127.0.0.1/inspect_it_dev'
+    "development" : {
+        "mongodb" : "mongodb://127.0.0.1/inspect_it_dev"
     },
-    
-    'test': {
-        'mongodb': 'mongodb://127.0.0.1/inspect_it_dev'
+    "test" : {
+        "mongodb" : "mongodb://127.0.0.1/inspect_it_test"
     },
-    
-    'production' : {
-        'mongodb': 'mongodb://127.0.0.1/inspect_it_dev'
+    "production" : {
+        "mongodb" : "mongodb://127.0.0.1/inspect_it_prod"
     }
 }
