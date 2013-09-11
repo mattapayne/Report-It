@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 
-module.exports.init = function()
-{
-  mongoose.connect('mongodb://127.0.0.1/inspectorly_dev');
+exports.init = function() {
+  console.log("*****************************");
+  var config = InspectIt.app.get('config');
+  console.log(InspectIt.app.get('config'));
+  mongoose.connect(config.mongodb);
 }

@@ -1,11 +1,11 @@
 var http = require('http');
 
 //application global obj
-InspectoryLy = { rootDirectory : __dirname };
+InspectIt = { rootDirectory : __dirname };
 
 var bootstrapper = require('./config/bootstrapper');
 bootstrapper.boot();
 
-http.createServer(InspectoryLy.app).listen(InspectoryLy.app.get('port'), function(){
-  console.log('Express server listening on port ' + InspectoryLy.app.get('port'));
+http.createServer(InspectIt.app).listen(InspectIt.app.get('port'), function(){
+  console.log('Express server listening on port ' + InspectIt.app.get('port'));
 });

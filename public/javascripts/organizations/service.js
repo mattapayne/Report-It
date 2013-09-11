@@ -1,4 +1,4 @@
-angular.module('inspectory.ly.dashboard.services').
+angular.module('InspectIt.dashboard.services').
     factory('Organization', ['$http', function($http) {
         return {
                 all: function() {

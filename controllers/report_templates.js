@@ -1,10 +1,13 @@
 var errorParser = require('../utility/mongoose_error_parser');
-var ReportTemplate = InspectoryLy.models("ReportTemplate");
+var ReportTemplate = InspectIt.models("ReportTemplate");
 
 exports.index = function(req, res) {
     ReportTemplate.find({created_by: req.user._id}, function(err, docs) {
         if(!err) {
-            res.render('report_templates/_index', { report_templates: docs });
+            res.render('report_templates/_index', {
+                report_templates: docs,
+                title: 'Inspect-It :: Report Templates'
+            });
         }
         else {
             res.send(err);
@@ -13,7 +16,12 @@ exports.index = function(req, res) {
 }
 
 exports.add = function(req, res) {
-    res.render('report_templates/add', { report_template: { name: "", description: "", content: ""} });
+    res.render('report_templates/add', {
+        report_template: {
+            name: "", description: "", content: ""
+            },
+        title: 'Inspect-It :: Add Report Template'
+    });
 }
 
 exports.create = function(req, res) {
@@ -28,7 +36,11 @@ exports.create = function(req, res) {
     reportTemplate.save(function(err, data) {
         if(err) {
             console.log(errorParser.parse(err));
-            res.render('report_templates/add', { report_template: reportTemplate, validation_errors: errorParser.parse(err) });
+            res.render('report_templates/add', {
+                report_template: reportTemplate,
+                validation_errors: errorParser.parse(err),
+                title: 'Inspect-It :: Add Report Template'
+            });
         }
         else {
             res.redirect('/dashboard');

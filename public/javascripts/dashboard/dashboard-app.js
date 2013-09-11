@@ -1,7 +1,7 @@
 //bootstrap Angular
-angular.module('inspectory.ly.dashboard.services', []);
-angular.module('inspectory.ly.dashboard.controllers', []);
-angular.module('inspectory.ly.dashboard',
-               ['inspectory.ly.dashboard.services',
-                'inspectory.ly.dashboard.controllers',
+angular.module('InspectIt.dashboard.services', []);
+angular.module('InspectIt.dashboard.controllers', []);
+angular.module('InspectIt.dashboard',
+               ['InspectIt.dashboard.services',
+                'InspectIt.dashboard.controllers',
                 'ngSanitize', 'globalErrors']);

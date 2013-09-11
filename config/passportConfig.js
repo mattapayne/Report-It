@@ -3,7 +3,7 @@ LocalStrategy = require('passport-local').Strategy;
 
 function init() {
     
-  var User = InspectoryLy.models("User");
+  var User = InspectIt.models("User");
   
   passport.use(new LocalStrategy(
     function(username, password, done) {

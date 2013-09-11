@@ -1,3 +1,3 @@
 exports.init = function() {
-  InspectoryLy.models = require('../models');
+  InspectIt.models = require('../models');
 }

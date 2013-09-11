@@ -2,7 +2,7 @@ var passwordUtil = require('../utility/password');
     
 function processRegistration(req, res) {
     
-  var User = InspectoryLy.models("User");
+  var User = InspectIt.models("User");
   var password = req.body.password;
   
   var hash = {
@@ -25,7 +25,7 @@ function processRegistration(req, res) {
 }
 
 function register(req, res) {
-  res.render('register/new', {active_tab: 'register'})
+  res.render('register/new', {active_tab: 'register', title: 'Inspect-It :: Register'})
 }
 
 exports.register = register;

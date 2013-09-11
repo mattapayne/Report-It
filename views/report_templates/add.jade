@@ -21,8 +21,8 @@ block content
                     - validation_errors.errors.forEach(function(e) {
                         li
                             span #{e.name + ' ' + e.type}
-                    - })   
-    form(method='post' action='/report_templates/create')
+                    - })
+    form(method='post' action='/report_templates/create', role='form').form-horizontal
         div.row
             div.col-md-2
                 div.row

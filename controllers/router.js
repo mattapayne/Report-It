@@ -1,11 +1,11 @@
-var main = require('./main'),
-  auth = require('./auth'),
-  reg = require('./register'),
-  dash = require('./dashboard'),
-  reports = require('./reports'),
-  report_templates = require('./report_templates'),
-  organizations = require('./organizations'),
-  snippets = require('./snippets'),
+var main = require('./main.js'),
+  auth = require('./auth.js'),
+  reg = require('./register.js'),
+  dash = require('./dashboard.js'),
+  reports = require('./reports.js'),
+  report_templates = require('./report_templates.js'),
+  organizations = require('./organizations.js'),
+  snippets = require('./snippets.js'),
   ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn,
   ensureLoggedOut = require('connect-ensure-login').ensureLoggedOut;
 
@@ -14,7 +14,7 @@ function Router() {
 }
 
 Router.prototype.init = function() {
-  var app = InspectoryLy.app;
+  var app = InspectIt.app;
   
   app.get('/', main.landing);
   app.get('/about', main.about);
@@ -63,6 +63,5 @@ function mustBeLoggedIn(req, res, next) {
 function mustNotBeLoggedIn(req, res, next) {
   ensureLoggedOut('/dashboard')(req, res, next);
 }
-
 
 exports.Router = new Router();
