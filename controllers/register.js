@@ -1,8 +1,8 @@
-var passwordUtil = require('../utility/password');
+var passwordUtil = require('../utility/password.js');
     
 exports.processRegistration = function processRegistration(req, res) {
     
-  var User = ReportIt.models("User");
+  var User = ReportIt.models('User');
   var password = req.body.password;
   
   var hash = {

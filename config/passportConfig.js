@@ -3,7 +3,7 @@ LocalStrategy = require('passport-local').Strategy;
 
 function init() {
     
-  var User = ReportIt.models("User");
+  var User = ReportIt.models('User');
   
   passport.use(new LocalStrategy(
     function(username, password, done) {

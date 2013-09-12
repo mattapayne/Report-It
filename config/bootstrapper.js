@@ -5,7 +5,8 @@ var path = require('path'),
     config = require('./config.json'),
     passportConfig = require('./passportConfig.js'),
     modelRegistrar = require('./modelsSetup.js'),
-    dataStoreConfig = require('./dataStoreConfig.js');
+    dataStoreConfig = require('./dataStoreConfig.js'),
+    simpleStorageConfig = require('./simpleStorageConfig.js');
 
 function boot() {
 
@@ -52,6 +53,7 @@ function boot() {
   dataStoreConfig.init();
   modelRegistrar.init();
   passportConfig.init();
+  simpleStorageConfig.init();
   
   //router must be the last to be loaded, since it relies on the 'app' being setup
   var router = require(ReportIt.rootDirectory + '/controllers/router').Router;

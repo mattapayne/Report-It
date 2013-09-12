@@ -13,6 +13,7 @@
     "passport-local": "0.1.6",
     "connect-flash": "0.1.1",
     "connect-ensure-login": "0.1.1",
-    "mongoose": "3.6.19"
+    "mongoose": "3.6.19",
+    "aws-sdk": "1.5.2"
   }
 }

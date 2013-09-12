@@ -1,7 +1,15 @@
 div.panel.panel-default
-    div.panel-heading Report Templates
+    div.panel-heading Snippets
     div.panel-body
-        div.container
+        div(ng-controller='ReportTemplatesController').container
             div#report-templates-container
-                div.loading
-            a(href='/report_templates/add').btn.btn-success.pull-right Add
+                ul
+                    li(ng-hide='reportTemplates.length > 0') You have not created any templates.
+                    li(ng-repeat="template in reportTemplates | orderBy:name:false")
+                        span {{template.name}}
+                        div.pull-right
+                            a(href='/report_templates/edit/{{template._id}}', title='Edit this template').btn.btn-default Edit
+                            a(ng-click='destroy($index)', ng-disabled='deleting($index)', title='Delete this template').btn.btn-danger Delete
+                        div.clearfix
+            a(href='/report_templates/add', title='Create a new template').btn.btn-success.pull-right Add
+               

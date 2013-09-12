@@ -2,11 +2,14 @@ extends ../layout
 
 block head-css
     link(rel='stylesheet', href='/lib/redactor/redactor.css')
+    link(rel='stylesheet', href='/lib/redactor/clips/clips.css')
     link(rel='stylesheet', href='/stylesheets/dashboard.css')
 
 block head-js
     script(type='text/javascript', src='/lib/redactor/redactor.min.js')
-    script(type='text/javascript', src='/javascripts/report_templates/add.js')
+    script(type='text/javascript', src='/lib/redactor/clips/clips.js')
+    script(type='text/javascript', src='/lib/redactor/fontsize/fontsize.js')
+    script(type='text/javascript', src='/javascripts/report_templates/form.js')
 
 block content
     ol.breadcrumb
@@ -23,7 +26,8 @@ block content
                         li
                             span #{e.name + ' ' + e.type}
                     - })
-    form(method='post' action='/report_templates/create', role='form').form-horizontal
+    form(method='post' action='/report_templates/update/#{report_template._id}', role='form').form-horizontal
+        input(type='hidden', name='_method', value='put')
         div.row
             div.col-md-2
                 div.row

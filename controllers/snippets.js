@@ -5,7 +5,7 @@ var Snippet = ReportIt.models("Snippet");
 function findAll(req, res, callback) {
     Snippet.findAllSortedByName(res.user._id, function(err, orgs) {
         if(err) {
-            res.send(400, errorParser.parse(err));
+            res.send(404, errorParser.parse(err));
         }
         else {
             callback(orgs);
@@ -39,7 +39,7 @@ exports.destroy = function(req, res) {
 exports.update = function(req, res) {
     Snippet.findById(req.params.id, function(err, snippet) {
         if(err) {
-            res.send(err);
+            res.send(404);
         }
         else {
             var name = req.body.name;

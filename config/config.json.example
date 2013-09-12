@@ -1,11 +1,26 @@
 {
     "development" : {
-        "mongodb" : "mongodb://127.0.0.1/report_it_dev"
+        "mongodb" : "mongodb://127.0.0.1/report_it_dev",
+        "aws" : {
+            "access_key_id" : "",
+            "secret_access_key" : "",
+            "bucket_name" : ""
+        }
     },
     "test" : {
-        "mongodb" : "mongodb://127.0.0.1/report_it_test"
+        "mongodb" : "mongodb://127.0.0.1/report_it_test",
+        "aws" : {
+            "access_key_id" : "",
+            "secret_access_key" : "",
+            "bucket_name" : ""
+        }
     },
     "production" : {
-        "mongodb" : "mongodb://127.0.0.1/report_it_prod"
+        "mongodb" : "mongodb://127.0.0.1/report_it_prod",
+        "aws" : {
+            "access_key_id" : "",
+            "secret_access_key" : "",
+            "bucket_name" : ""
+        }
     }
 }

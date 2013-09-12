@@ -1,12 +1,13 @@
 $(function() {
 
     $("#editor").redactor({
-        imageUpload : '/images/upload',
+        imageUpload : '/images/upload/',
         clipboardUploadUrl: '/images/upload/',
         focus: true,
         minHeight: 500,
         linebreaks: true,
-        paragraphy: false
+        paragraphy: false,
+        plugins: ['clips', 'fontsize']
     });
     
     var loadSnippets = $.ajax('/snippets/with_content', { dataType: 'html' });

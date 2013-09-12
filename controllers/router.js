@@ -6,6 +6,7 @@ var main = require('./main.js'),
   report_templates = require('./report_templates.js'),
   organizations = require('./organizations.js'),
   snippets = require('./snippets.js'),
+  images = require('./images.js'),
   ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn,
   ensureLoggedOut = require('connect-ensure-login').ensureLoggedOut;
 
@@ -36,6 +37,8 @@ Router.prototype.init = function() {
   app.get('/report_templates/add', report_templates.add);
   app.get('/report_templates/edit/:id', report_templates.edit);
   app.post('/report_templates/create', report_templates.create);
+  app.delete('/report_templates/destroy/:id', report_templates.destroy);
+  app.put('/report_templates/update/:id', report_templates.update);
   
   app.all('/organizations/*', mustBeLoggedIn);
   app.get('/organizations', organizations.index);
@@ -50,6 +53,8 @@ Router.prototype.init = function() {
   app.delete('/snippets/destroy/:id', snippets.destroy);
   app.post('/snippets/create', snippets.create);
   app.put('/snippets/update/:id', snippets.update);
+  
+  app.post('/images/upload', mustBeLoggedIn, images.upload)
   
   app.get('/session_keepalive', function(req, res) {
     res.send(200);
