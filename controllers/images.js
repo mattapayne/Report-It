@@ -4,35 +4,35 @@ var aws = require('aws-sdk'),
 var AWS_URI = 'https://s3.amazonaws.com';
     
 function saveFile(res, s3, destination_bucket, fileName, data) {
-    s3.putObject({
-                    Bucket : destination_bucket,
-                    Key: fileName,
-                    Body: data,
-                    ACL: 'public-read'
-                }, function(err) {
-                        if(err) {
-                          console.log(err);
-                          res.send(500);
-                        }
-                        else {
-                          res.json({
-                            filelink: AWS_URI + '/' + destination_bucket + '/' + fileName 
-                          });     
-                        }
-                    });
+  s3.putObject({
+                  Bucket : destination_bucket,
+                  Key: fileName,
+                  Body: data,
+                  ACL: 'public-read'
+              }, function(err) {
+                      if(err) {
+                        console.log(err);
+                        res.send(500);
+                      }
+                      else {
+                        res.json({
+                          filelink: AWS_URI + '/' + destination_bucket + '/' + fileName 
+                        });     
+                      }
+                  });
 }
         
 function createBucket(res, destination_bucket, fileName, data) {
-    var s3 = new aws.S3();
-    s3.createBucket({ Bucket: destination_bucket }, function(err) {
-      if(err) {
-        console.log(err);
-        res.send(500);
-      }
-      else {
-        saveFile(res, s3, destination_bucket, fileName, data);
-      }
-    });
+  var s3 = new aws.S3();
+  s3.createBucket({ Bucket: destination_bucket }, function(err) {
+    if(err) {
+      console.log(err);
+      res.send(500);
+    }
+    else {
+      saveFile(res, s3, destination_bucket, fileName, data);
+    }
+  });
 }
 
 exports.upload = function(req, res) {
