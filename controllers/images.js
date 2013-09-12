@@ -11,7 +11,6 @@ function saveFile(res, s3, destination_bucket, fileName, data) {
                   ACL: 'public-read'
               }, function(err) {
                       if(err) {
-                        console.log(err);
                         res.send(500);
                       }
                       else {
@@ -26,7 +25,6 @@ function createBucket(res, destination_bucket, fileName, data) {
   var s3 = new aws.S3();
   s3.createBucket({ Bucket: destination_bucket }, function(err) {
     if(err) {
-      console.log(err);
       res.send(500);
     }
     else {
@@ -43,7 +41,6 @@ exports.upload = function(req, res) {
 
   fs.readFile(req.files.file.path, function(err, data) {
     if(err) {
-      console.log(err);
       res.send(500);
     }
     else {
