@@ -15,7 +15,7 @@ exports.processRegistration = function processRegistration(req, res) {
   var user = new User(hash);
   
   user.save(function(err, data) {
-    if(err) {
+    if(err) { //TODO - change this to re-render register page with errors
       res.send(err);
     }
     else {

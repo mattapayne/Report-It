@@ -52,7 +52,8 @@ $(function() {
         
         var timeRemaining = Math.floor(obj["as" + format]());
         
-        $("a#remaining-session-time").text("Time remaining in your session: " + timeRemaining + " " + format.toLowerCase());
+        $("a#remaining-session-time").
+            text("Time remaining in your session: " + timeRemaining + " " + format.toLowerCase());
         
         if (warningDialogVisible) {
             $("#session-timeout-dialog #session-time-remaining").

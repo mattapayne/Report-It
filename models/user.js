@@ -3,7 +3,6 @@ var Schema = mongoose.Schema,
     ObjectId = Schema.ObjectId,
     password = require('../utility/password.js');
 
- 
 var User = new Schema({
   firstName: {type: String, required: true, trim: true},
   lastName: {type: String, required: true, trim: true},

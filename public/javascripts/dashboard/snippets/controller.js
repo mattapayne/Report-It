@@ -18,6 +18,7 @@ angular.module('ReportIt.dashboard.controllers').
         };
         
         //since there is no 'finally' construct in Angular's promise returned by $http, we have to duplicate some code.
+        //TODO - Refactor duplicated code into function
         self.deleteSnippet = function(index, snippet) {
             Snippet.destroy(snippet).success(function() {
                     $scope.snippets.splice(index, 1);

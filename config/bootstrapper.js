@@ -32,13 +32,13 @@ function boot() {
   
   //set current user so views, etc. have access
   ReportIt.app.use(function(req, res, next) {
-     res.locals.current_user = req.user;
-     res.locals.logged_in = req.user != null;
-     var now = Date.now();
-     var expires = req.session.cookie.expires;
-     var session_length = Math.abs(expires - now);
-      res.locals.session_length = session_length;
-     next();
+    res.locals.current_user = req.user;
+    res.locals.logged_in = req.user != null;
+    var now = Date.now();
+    var expires = req.session.cookie.expires;
+    var session_length = Math.abs(expires - now);
+    res.locals.session_length = session_length;
+    next();
   });
   
   ReportIt.app.use(require('stylus').middleware(ReportIt.rootDirectory + '/public'));

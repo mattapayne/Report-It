@@ -1,4 +1,4 @@
-var errorParser = require('../utility/mongoose_error_parser');
+var errorParser = require('../utility/mongoose_error_parser.js');
 
 var Snippet = ReportIt.models("Snippet");
 

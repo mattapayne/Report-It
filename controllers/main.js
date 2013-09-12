@@ -1,3 +1,4 @@
+//TODO - These should just be static pages
 exports.landing = function landing(req, res) {
   res.render('main/index', { title: 'Report-It :: Home', active_tab: 'home' });
 }

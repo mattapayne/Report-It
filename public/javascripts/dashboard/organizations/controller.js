@@ -17,6 +17,7 @@ angular.module('ReportIt.dashboard.controllers').
         };
         
         //since there is no 'finally' construct in Angular's promise returned by $http, we have to duplicate some code.
+        //TODO - Refactor duplicated code into function
         self.deleteOrganization = function(index, organization) {
             Organization.destroy(organization).success(function() {
                 $scope.organizations.splice(index, 1);

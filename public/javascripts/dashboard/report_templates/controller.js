@@ -9,6 +9,7 @@ angular.module('ReportIt.dashboard.controllers').
         });
         
         //since there is no 'finally' construct in Angular's promise returned by $http, we have to duplicate some code.
+        //TODO - Refactor duplicated code into function
         self.deleteReportTemplate = function(index, reportTemplate) {
             ReportTemplate.destroy(reportTemplate).success(function() {
                     $scope.reportTemplates.splice(index, 1);

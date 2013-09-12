@@ -10,6 +10,7 @@ $(function() {
         plugins: ['clips', 'fontsize']
     });
     
+    //TODO - Move this to Angular
     var loadSnippets = $.ajax('/snippets/with_content', { dataType: 'html' });
     var loadOrganization = $.ajax('/organizations/as_select', { dataType: 'html' });
     

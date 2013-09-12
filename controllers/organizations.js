@@ -1,5 +1,4 @@
 var errorParser = require('../utility/mongoose_error_parser.js');
-
 var Organization = ReportIt.models('Organization');
 
 function findAll(req, res, callback) {
