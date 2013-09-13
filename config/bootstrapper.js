@@ -43,6 +43,7 @@ function boot() {
   
   ReportIt.app.use(require('stylus').middleware(ReportIt.rootDirectory + '/public'));
   ReportIt.app.use(express.static(path.join(ReportIt.rootDirectory, 'public')));
+  
   ReportIt.app.use(ReportIt.app.router);
   
   // development only

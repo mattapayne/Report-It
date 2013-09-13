@@ -1,4 +1,6 @@
 var aws = require('aws-sdk'),
+    uuid = require('node-uuid'),
+    mkdirp = require('mkdirp'),
     fs = require('fs');
     
 var AWS_URI = 'https://s3.amazonaws.com';
@@ -33,18 +35,47 @@ function createBucket(res, destination_bucket, fileName, data) {
   });
 }
 
-exports.upload = function(req, res) {
-  var bucket_name = ReportIt.app.get('config').aws.bucket_name;
-  var user_id = req.user._id;
-  var fileName = req.files.file.name;
-  var destination_bucket = bucket_name + '-' + user_id;
-
-  fs.readFile(req.files.file.path, function(err, data) {
-    if(err) {
+function saveLocally(fs, res, fileName, data) {
+  
+  var folder = ReportIt.rootDirectory + '/public/uploads';
+  var path = folder + '/' + fileName;
+  var relativePath = '/uploads/' + fileName;
+  
+  mkdirp(folder, function(err) {
+    if (err) {
       res.send(500);
     }
     else {
-      createBucket(res, destination_bucket, fileName, data);
+       fs.writeFile(path, data, function(err) {
+        if (err) {
+          res.send(500);
+        }
+        else {
+            res.json({
+              filelink: relativePath
+          });  
+        }
+      }); 
     }
+  });
+}
+
+exports.upload = function(req, res) {
+
+  var bucketName = ReportIt.app.get('config').aws.bucket_name;
+  var fileName = uuid.v4();
+  
+  fs.readFile(req.files.file.path, function(err, data) {
+      if (err) {
+        res.send(500);
+      }
+      else {
+        if (ReportIt.app.get('env') !== 'development') {
+            createBucket(res, bucketName, fileName, data);
+        }
+        else {
+          saveLocally(fs, res, fileName, data);
+        }
+      }
   });
 }
