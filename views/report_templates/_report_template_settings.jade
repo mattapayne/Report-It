@@ -7,22 +7,25 @@ div.panel.panel-default
                     label(for='template_name').control-label Template Name
             div.row
                 div.col-lg-12
-                    input(type='text', value='#{ report_template.name }' name='template_name', id='template_name', placeholder='Name this template').form-control
+                    input(type='text', name='template_name', id='template_name', ng-model='reportTemplate.name'
+                        placeholder='Name this template').form-control #{report_template.name}
             div.row
                 div.col-lg-12
-                    label(for='organization_id').control-label Organization
+                    label(for='organization_id').control-label Associate With Organization(s)
+            div.row
+                div.col-lg-12
+                    div#organizations(ng-repeat='o in organizations')
+                        input(type='checkbox', checked='o.associated', ng-model='o.associated' id='organization_{{ o._id }}')
+                        &nbsp;
+                        label(for='organization_{{ o._id }}') {{ o.name }}
                     small &nbsp;
-                        a(href='#', id='add-organization') (Create one)
-            div.row
-                div.col-lg-12
-                    div#organizations-select-container
-                        div.loading
+                        a(href='#', ng-click='addOrganization()') (Create one)
             div.row
                 div.col-lg-12
                     label(for='template_description').control-label Description
             div.row
                 div.col-lg-12
-                    textarea(name='template_description', id='template_description', rows='6').form-control #{ report_template.description }
+                    textarea(id='template_description', name='template_description', rows='6', ng-model='reportTemplate.description').form-control
             div.row
                 div.col-lg-12.top-margin5
-                    button(type='submit').btn.btn-success.form-control Save
+                    button(ng-disabled='isFormInvalid()', ng-click='save()').btn.btn-success.form-control Save

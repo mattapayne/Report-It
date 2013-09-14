@@ -36,13 +36,13 @@ Router.prototype.init = function() {
   app.get('/report_templates', report_templates.index);
   app.get('/report_templates/add', report_templates.add);
   app.get('/report_templates/edit/:id', report_templates.edit);
+  app.get('/report_templates/:id', report_templates.get);
   app.post('/report_templates/create', report_templates.create);
   app.delete('/report_templates/destroy/:id', report_templates.destroy);
   app.put('/report_templates/update/:id', report_templates.update);
   
   app.all('/organizations/*', mustBeLoggedIn);
   app.get('/organizations', organizations.index);
-  app.get('/organizations/as_select', organizations.asSelect);
   app.post('/organizations/create', organizations.create);
   app.delete('/organizations/destroy/:id', organizations.destroy);
   app.put('/organizations/update/:id', organizations.update);

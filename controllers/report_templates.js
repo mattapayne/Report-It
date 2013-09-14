@@ -12,15 +12,27 @@ exports.index = function(req, res) {
   });
 }
 
+exports.get = function(req, res) {
+  ReportTemplate.findById(req.params.id, function(err, templ) {
+    if(err) {
+      res.send(404);
+    }
+    else {
+      res.json(templ);
+    }
+  });
+}
+
 exports.edit = function(req, res) {
   ReportTemplate.findById(req.params.id, function(err, templ) {
     if(err) {
       res.send(404);
     }
     else {
-      res.render('report_templates/edit', {
+      res.render('report_templates/report_template', {
         report_template: templ,
-        title: 'Report-It :: Edit Report Template'
+        title: 'Report-It :: Edit Report Template',
+        breadcrumbText: "Edit Report Template: '" + templ.name + "'"
       });
     }
   });
@@ -38,11 +50,12 @@ exports.destroy = function(req, res) {
 }
 
 exports.add = function(req, res) {
-  res.render('report_templates/add', {
+  res.render('report_templates/report_template', {
     report_template: {
-        name: '', description: '', content: ''
+        name: '', description: '', content: '', _id: ''
         },
-    title: 'Report-It :: Add Report Template'
+    title: 'Report-It :: Add Report Template',
+    breadcrumbText: 'Create Report Template'
   });
 }
 
@@ -55,28 +68,21 @@ exports.update = function(req, res) {
     
   ReportTemplate.findById(req.params.id, function(err, template) {
     if (err) {
-      res.send(404);
+      res.send(406, errorParser.parse(err));
     }
     else {
-      template.name = req.body.template_name;
-      template.description = req.body.template_description;
-      template.content = req.body.report_template_content
-      template.modified = Date.now(); 
-  
-      if (req.body.organization_id) {
-        template.organizations.push(req.body.organization_id);
-      }
-  
+      template.name = req.body.name;
+      template.description = req.body.description;
+      template.content = req.body.content
+      template.modified = Date.now();
+      template.organizations = req.body.organizations;
+      
       template.save(function(err) {
         if (err) {
-          res.render('report_templates/edit', {
-            report_template: reportTemplate,
-            validation_errors: errorParser.parse(err),
-            title: 'Report-It :: Edit Report Template'
-          });
+          res.send(406, errorParser.parse(err));
         }
         else {
-          res.redirect('/dashboard');
+          res.send(200);
         }
       });
     }
@@ -85,28 +91,21 @@ exports.update = function(req, res) {
 
 exports.create = function(req, res) {
   var hash = {
-    name: req.body.template_name,
-    description: req.body.template_description,
-    content: req.body.report_template_content,
-    created_by: req.user._id
+    name: req.body.name,
+    description: req.body.description,
+    content: req.body.content,
+    created_by: req.user._id,
+    organizations: req.body.organizations
   }
     
   var reportTemplate = new ReportTemplate(hash);
     
-  if (req.organization_id) {
-    template.organizations.push(req.organization_id);
-  }
-    
   reportTemplate.save(function(err, data) {
     if(err) {
-      res.render('report_templates/add', {
-        report_template: reportTemplate,
-        validation_errors: errorParser.parse(err),
-        title: 'Report-It :: Add Report Template'
-      });
+      res.send(400, errorParser.parse(err));
     }
     else {
-      res.redirect('/dashboard');
+      res.send(200);
     }
   });
 }

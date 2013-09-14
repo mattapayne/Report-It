@@ -1,0 +1,33 @@
+extends ../layout
+
+block head-css
+    link(rel='stylesheet', href='/lib/redactor/redactor.css')
+    link(rel='stylesheet', href='/lib/redactor/clips/clips.css')
+    link(rel='stylesheet', href='/stylesheets/dashboard.css')
+
+block head-js
+    script(type='text/javascript', src='/lib/redactor/redactor.min.js')
+    script(type='text/javascript', src='/lib/redactor/clips/clips.js')
+    script(type='text/javascript', src='/lib/redactor/fontsize/fontsize.js')
+    script(type='text/javascript', src='/javascripts/angular_common/global_errors.js')
+    script(type='text/javascript', src='/javascripts/angular_common/custom_directives.js')
+    script(type='text/javascript', src='/javascripts/report_templates/report_template_app.js')
+    script(type='text/javascript', src='/javascripts/report_templates/service.js')
+    script(type='text/javascript', src='/javascripts/report_templates/controller.js')
+
+block content
+    div(ng-app='ReportIt.report_template', ng-controller='ReportTemplateController', ng-init="init('#{report_template._id}')")
+        div(app-messages).messagesList
+        ol.breadcrumb
+            li
+                a(href='/dashboard') Dashboard
+            li.active #{ breadcrumbText }
+        div.row
+          div.col-md-2
+              div.row
+                  include _report_template_settings
+              div.row
+                  include ../snippets/_snippet_adder
+          div.col-md-10
+              textarea(ng-model='reportTemplate.content', redactor options='redactorOptions', name='content')
+        

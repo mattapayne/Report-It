@@ -3,5 +3,11 @@ div.panel.panel-default
     div.panel-body
         div.container
             div#snippets-container
-                div.loading
-            a(href='/snippets/add').btn.btn-success.btn-xs.pull-right Add
+                div(ng-repeat="snippet in snippets").snippet
+                    a(href='', ng-click='toggleSnippetVisible($index)').snippet-name {{snippet.name}}
+                    div.pull-right
+                        a(ng-click='editSnippet($index)').btn.btn-default.btn-xs Edit
+                        a(ng-click='deleteSnippet($index)').btn.btn-danger.btn-xs Delete
+                    div.clearfix
+                    div(ng-show='isSnippetVisible($index)').snippet-actual.well {{snippet.content}}
+            a(ng-click='addSnippet()').btn.btn-success.btn-xs.pull-right Add

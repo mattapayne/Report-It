@@ -55,12 +55,6 @@ exports.index = function(req, res) {
     });
 }
 
-exports.asSelect = function(req, res) {
-    findAll(res, req, function(orgs) {
-        res.render('organizations/_select', { organizations: orgs});
-    });
-}
-
 exports.create = function(req, res) {
     var hash = {
         name: req.body.name,
