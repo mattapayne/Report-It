@@ -50,11 +50,13 @@ function boot() {
   if ('development' == ReportIt.app.get('env')) {
     ReportIt.app.use(express.errorHandler());
   }
+  else {
+    simpleStorageConfig.init();
+  }
   
   dataStoreConfig.init();
   modelRegistrar.init();
   passportConfig.init();
-  simpleStorageConfig.init();
   
   //router must be the last to be loaded, since it relies on the 'app' being setup
   var router = require(ReportIt.rootDirectory + '/controllers/router').Router;

@@ -59,16 +59,6 @@ angular.module('ReportIt.report_template.controllers').
         return $scope.reportTemplate == null || !$scope.reportTemplate.name || !$scope.reportTemplate.content;
       };
       
-      $scope.isOrganizationAssociated = function(index) {
-        var organization = $scope.organizations[index];
-        return organization.assiciated
-      }
-      
-      $scope.organizationSelectionChanged = function(index) {
-        var organization = $scope.organizations[index];
-        organization.associated = !organization.associated;
-      }
-      
       $scope.save = function() {
         self.setSelectedOrganizations();
         //this is an update to an existing report template
