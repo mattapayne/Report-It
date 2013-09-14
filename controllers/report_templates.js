@@ -76,13 +76,16 @@ exports.update = function(req, res) {
       template.content = req.body.content
       template.modified = Date.now();
       template.organizations = req.body.organizations;
+      template.client = req.body.client;
       
       template.save(function(err) {
         if (err) {
           res.send(406, errorParser.parse(err));
         }
         else {
-          res.send(200);
+          res.json({
+            redirectUrl: '/dashboard'
+          });
         }
       });
     }
@@ -95,7 +98,8 @@ exports.create = function(req, res) {
     description: req.body.description,
     content: req.body.content,
     created_by: req.user._id,
-    organizations: req.body.organizations
+    organizations: req.body.organizations,
+    client: req.body.client
   }
     
   var reportTemplate = new ReportTemplate(hash);
@@ -105,7 +109,9 @@ exports.create = function(req, res) {
       res.send(400, errorParser.parse(err));
     }
     else {
-      res.send(200);
+      res.json({
+            redirectUrl: '/dashboard'
+      });
     }
   });
 }

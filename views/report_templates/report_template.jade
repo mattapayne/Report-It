@@ -2,13 +2,16 @@ extends ../layout
 
 block head-css
     link(rel='stylesheet', href='/lib/redactor/redactor.css')
-    link(rel='stylesheet', href='/lib/redactor/clips/clips.css')
+    link(rel='stylesheet', href='/lib/redactor/plugins/clips/clips.css')
     link(rel='stylesheet', href='/stylesheets/dashboard.css')
 
 block head-js
-    script(type='text/javascript', src='/lib/redactor/redactor.min.js')
-    script(type='text/javascript', src='/lib/redactor/clips/clips.js')
-    script(type='text/javascript', src='/lib/redactor/fontsize/fontsize.js')
+    script(type='text/javascript', src='/lib/redactor/redactor.js')
+    script(type='text/javascript', src='/lib/redactor/plugins/clips/clips.js')
+    script(type='text/javascript', src='/lib/redactor/plugins/fontsize/fontsize.js')
+    script(type='text/javascript', src='/lib/redactor/plugins/fontcolor/fontcolor.js')
+    script(type='text/javascript', src='/lib/redactor/plugins/fontfamily/fontfamily.js')
+    script(type='text/javascript', src='/lib/redactor/plugins/fullscreen/fullscreen.js')
     script(type='text/javascript', src='/javascripts/angular_common/global_errors.js')
     script(type='text/javascript', src='/javascripts/angular_common/custom_directives.js')
     script(type='text/javascript', src='/javascripts/report_templates/report_template_app.js')
@@ -22,12 +25,21 @@ block content
             li
                 a(href='/dashboard') Dashboard
             li.active #{ breadcrumbText }
+        div(ng-hide='requirementsMessagesEmpty()').alert.alert-danger
+            div You cannot save this template yet ...
+            div(ng-repeat='message in requirementMessages') {{ message }}
+        div(ng-show='requirementsMessagesEmpty()')
+            div.alert.alert-success You can save this template!
         div.row
           div.col-md-2
               div.row
                   include _report_template_settings
-              div.row
-                  include ../snippets/_snippet_adder
           div.col-md-10
               textarea(ng-model='reportTemplate.content', redactor options='redactorOptions', name='content')
+        div#clipsmodal.hidden
+            div.snippets
+                div(ng-repeat='snippet in snippets').snippet
+                    a(href='').redactor_clip_link {{ snippet.name }}
+                    pre {{ snippet.content }}
+        
         

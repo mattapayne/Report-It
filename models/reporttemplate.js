@@ -5,6 +5,7 @@ var Schema = mongoose.Schema,
 var ReportTemplate = new Schema({
   name: {type: String, required: true, trim: true},
   description: {type: String, required: false, trim: true},
+  client: {type: String, required: false, trim: true},
   content: {type: String, required: true, trim: true, unique: true},
   created_by: {type: ObjectId, required: true},
   created: { type: Date, required: true, default: Date.now },

@@ -3,8 +3,6 @@ if (!RedactorPlugins) var RedactorPlugins = {};
 RedactorPlugins.clips = {
 	init: function()
 	{
-		var self = this;
-		
 		var callback = $.proxy(function()
 		{
 			$('#redactor_modal').find('.redactor_clip_link').each($.proxy(function(i, s)
@@ -17,19 +15,19 @@ RedactorPlugins.clips = {
 				}, this));
 			}, this));
 
-			self.saveSelection();
-			self.setBuffer();
+			this.selectionSave();
+			this.bufferSet();
 
 		}, this );
-			
-		self.addBtn('clips', 'Clips', function(e)
+
+		this.buttonAdd('clips', 'Snippets', function(e)
 		{
-			self.modalInit('Clips', '#clipsmodal', 500, callback);
+			this.modalInit('Snippets', '#clipsmodal', 500, callback);
 		});
 	},
 	insertClip: function(html)
 	{
-		this.restoreSelection();
+		this.selectionRestore();
 		this.insertHtml($.trim(html));
 		this.modalClose();
 	}

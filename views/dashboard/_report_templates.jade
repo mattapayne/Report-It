@@ -1,12 +1,13 @@
 div.panel.panel-default
-    div.panel-heading Snippets
+    div.panel-heading Report Templates
     div.panel-body
         div(ng-controller='ReportTemplatesController').container
             div#report-templates-container
                 ul
                     li(ng-hide='reportTemplates.length > 0') You have not created any templates.
                     li(ng-repeat="template in reportTemplates | orderBy:name:false")
-                        span {{template.name}}
+                        span {{template.name}} &nbsp;&nbsp;
+                        span ({{ template.client || 'No client' }})
                         div.pull-right
                             a(href='/report_templates/edit/{{template._id}}', title='Edit this template').btn.btn-default Edit
                             a(ng-click='destroy($index)', ng-disabled='deleting($index)', title='Delete this template').btn.btn-danger Delete

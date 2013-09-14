@@ -2,6 +2,7 @@ angular.module('ReportIt.report_template.controllers').
     controller('ReportTemplateController', ['$scope', 'ReportTemplate', function($scope, ReportTemplate) {
       
       var self = this;
+      $scope.requirementMessages = {};
       $scope.organizations = [];
       $scope.snippets = [];
       $scope.reportTemplate = null;
@@ -10,24 +11,45 @@ angular.module('ReportIt.report_template.controllers').
         imageUpload : '/images/upload/',
         clipboardUploadUrl: '/images/upload/',
         focus: true,
-        minHeight: 500,
+        minHeight: 550,
         linebreaks: true,
         paragraphy: false,
-        plugins: ['clips', 'fontsize']
+        plugins: ['clips', 'fontsize', 'fontfamily', 'fontcolor', 'fullscreen']
       };
-        
+      
+      $scope.$watch('reportTemplate.name', function(newValue, oldValue) {
+        if(!newValue || newValue.length === 0) {
+          $scope.requirementMessages['reportTemplate.name'] = "Template name is required.";
+        }
+        else {
+          delete $scope.requirementMessages['reportTemplate.name'];
+        }
+      });
+      
+      $scope.$watch('reportTemplate.content', function(newValue, oldValue) {
+        if(!newValue || newValue.length === 0) {
+          $scope.requirementMessages['reportTemplate.content'] = "Template content is required.";
+        }
+        else {
+          delete $scope.requirementMessages['reportTemplate.content'];
+        }
+      });
+      
+      $scope.requirementsMessagesEmpty = function() {
+        return _.isEmpty($scope.requirementMessages);
+      };
+      
       self.loadOrganizationsAndSnippets = function() {
         ReportTemplate.organizations().success(function(organizations) {
           $scope.organizations = organizations;
-          _.each($scope.organizations, function(o) {
-            o.associated = _.contains($scope.reportTemplate.organizations, o._id);
-          });
+          if ($scope.reportTemplate._id) {
+            _.each($scope.organizations, function(o) {
+              o.associated = _.contains($scope.reportTemplate.organizations, o._id);
+            });
+          }
         }).then(function() {
           ReportTemplate.snippets().success(function(snippets) {
-          _.each(snippets, function(s) {
-              snippets.visible = false;
-          });
-          $scope.snippets = snippets;
+            $scope.snippets = snippets;
         });
       });
       };
@@ -42,17 +64,10 @@ angular.module('ReportIt.report_template.controllers').
       };
       
       $scope.init = function(report_template_id) {
-        //this is a new report template
-        if (!report_template_id) {
-          $scope.reportTemplate = {name: '', description: '', content: '', organizations: []};
-          self.loadOrganizationsAndSnippets();
-        }
-        else {
-            ReportTemplate.get(report_template_id).success(function(reportTemplate) {
+        ReportTemplate.get(report_template_id).success(function(reportTemplate) {
               $scope.reportTemplate = reportTemplate;
               self.loadOrganizationsAndSnippets();
           }); 
-        }
       };
       
       $scope.isFormInvalid = function() {
@@ -61,45 +76,9 @@ angular.module('ReportIt.report_template.controllers').
       
       $scope.save = function() {
         self.setSelectedOrganizations();
-        //this is an update to an existing report template
-        if ($scope.reportTemplate._id) {
-          ReportTemplate.update($scope.reportTemplate).success(function() {
-            window.location.href = '/dashboard';
+        ReportTemplate.save($scope.reportTemplate).success(function(result) {
+            window.location.href = result.redirectUrl;
           });
-        }
-        else {
-          ReportTemplate.save($scope.reportTemplate).success(function() {
-            window.location.href = '/dashboard';
-          });
-        }
-      };
-      
-      $scope.addOrganization = function() {
-        //TODO - Implement
-      };
-      
-      $scope.addSnippet = function() {
-        //TODO - Implement
-      };
-      
-      $scope.editSnippet = function(index) {
-        //TODO - Implement
-      };
-      
-      $scope.deleteSnippet = function(index) {
-        //TODO - Implement
-      };
-      
-      $scope.isSnippetVisible = function(index) {
-        var snippet = $scope.snippets[index];
-        return snippet && snippet.visible == true;
-      };
-      
-      $scope.toggleSnippetVisible = function(index) {
-        var snippet = $scope.snippets[index];
-        if(snippet) {
-          snippet.visible = !snippet.visible;
-        }
       };
     }
 ]);
