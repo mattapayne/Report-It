@@ -1,15 +1,113 @@
+var errorParser = require('../utility/mongoose_error_parser.js');
+var Report = ReportIt.models('Report');
+
 exports.index = function(req, res) {
-  var reports = [
-    { name: 'Report #1', id: 1 },
-    { name: 'Report #2', id: 2 }
-  ];
-  res.render('reports/_index', { reports: reports, title: 'Report-It :: Reports' });
+  Report.find({ created_by: req.user._id }, function(err, docs) {
+    if(err) {
+      res.send(404, errorParser.parse(err));
+    }
+    else {
+      res.json(docs);
+    }
+  });
+}
+
+exports.get = function(req, res) {
+  Report.findById(req.params.id, function(err, report) {
+    if(err) {
+      res.send(404, errorParser.parse(err));
+    }
+    else {
+      res.json(report);
+    }
+  });
+}
+
+exports.edit = function(req, res) {
+  Report.findById(req.params.id, function(err, report) {
+    if(err) {
+      res.send(404, errorParser.parse(err));
+    }
+    else {
+      res.render('reports/report', {
+        report: report,
+        title: 'Report-It :: Edit Report',
+        breadcrumbText: "Edit Report: '" + report.name + "'"
+      });
+    }
+  });
+}
+
+exports.destroy = function(req, res) {
+  Report.remove({_id: req.params.id}, function(err) {
+    if(err) {
+      res.send(404, errorParser.parse(err));
+    }
+    else {
+      res.send(200);
+    }
+  });
 }
 
 exports.add = function(req, res) {
-  res.render('reports/add', {title: 'Report-It :: Add Report'});
+  res.render('reports/report', {
+    report: {
+        name: '', description: '', content: '', _id: ''
+        },
+    title: 'Report-It :: Add Report',
+    breadcrumbText: 'Add Report'
+  });
+}
+
+exports.update = function(req, res) {
+  Report.findById(req.params.id, function(err, report) {
+    if (err) {
+      res.send(404, errorParser.parse(err));
+    }
+    else {
+      report.name = req.body.name;
+      report.description = req.body.description;
+      report.content = req.body.content
+      report.modified = Date.now();
+      report.organizations = req.body.organizations;
+      report.client = req.body.client;
+      report_template: req.body.report_template
+      
+      report.save(function(err) {
+        if (err) {
+          res.send(406, errorParser.parse(err));
+        }
+        else {
+          res.json({
+            redirectUrl: '/dashboard'
+          });
+        }
+      });
+    }
+  });
 }
 
 exports.create = function(req, res) {
+  var hash = {
+    name: req.body.name,
+    description: req.body.description,
+    content: req.body.content,
+    created_by: req.user._id,
+    organizations: req.body.organizations,
+    client: req.body.client,
+    report_template: req.body.report_template
+  }
     
+  var report = new Report(hash);
+    
+  report.save(function(err, data) {
+    if(err) {
+      res.send(400, errorParser.parse(err));
+    }
+    else {
+      res.json({
+            redirectUrl: '/dashboard'
+      });
+    }
+  });
 }

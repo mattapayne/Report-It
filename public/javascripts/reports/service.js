@@ -1,11 +1,11 @@
-angular.module('ReportIt.report_template.services').
-    factory('ReportTemplate', ['$http', '$q', function($http, $q) {
+angular.module('ReportIt.report.services').
+    factory('Report', ['$http', '$q', function($http, $q) {
         return {
-                get: function(reportTemplateId) {
-                    if (reportTemplateId) {
-                        return $http.get('/report_templates/' + reportTemplateId);  
+                get: function(reportId) {
+                    if (reportId) {
+                        return $http.get('/reports/' + reportId);  
                     }
-                    //because we are creating a new ReportTemplate, there is no need to hit the backend.
+                    //because we are creating a new Report, there is no need to hit the backend.
                     //just return a promise that resolves to a new object.
                     var deferred = $q.defer();
                     deferred.resolve({name: '', description: '', content: '', organizations: [], _id: ''});
@@ -18,6 +18,10 @@ angular.module('ReportIt.report_template.services').
                     return promise;
                 },
                 
+                reportTemplates: function() {
+                  return $http.get('/report_templates');   
+                },
+                
                 organizations: function() {
                     return $http.get('/organizations');    
                 },
@@ -26,11 +30,11 @@ angular.module('ReportIt.report_template.services').
                     return $http.get('/snippets');
                 },
                 
-                save: function(reportTemplate) {
-                    if (reportTemplate._id) {
-                        return $http.put('/report_templates/update/' + reportTemplate._id, angular.toJson(reportTemplate));
+                save: function(report) {
+                    if (report._id) {
+                        return $http.put('/reports/update/' + report._id, angular.toJson(report));
                     }
-                    return $http.post('/report_templates/create', angular.toJson(reportTemplate));
+                    return $http.post('/reports/create', angular.toJson(report));
                 }
             };  
 }]);

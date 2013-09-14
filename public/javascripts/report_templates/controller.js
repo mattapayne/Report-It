@@ -39,30 +39,6 @@ angular.module('ReportIt.report_template.controllers').
         return _.isEmpty($scope.requirementMessages);
       };
       
-      self.loadOrganizationsAndSnippets = function() {
-        ReportTemplate.organizations().success(function(organizations) {
-          $scope.organizations = organizations;
-          if ($scope.reportTemplate._id) {
-            _.each($scope.organizations, function(o) {
-              o.associated = _.contains($scope.reportTemplate.organizations, o._id);
-            });
-          }
-        }).then(function() {
-          ReportTemplate.snippets().success(function(snippets) {
-            $scope.snippets = snippets;
-        });
-      });
-      };
-      
-      self.setSelectedOrganizations = function() {
-        $scope.reportTemplate.organizations = _.reject(_.map($scope.organizations, function(o) {
-          if (o.associated) {
-            return o._id;
-          }
-          return null;
-        }), function(id) { return id == null; });
-      };
-      
       $scope.init = function(report_template_id) {
         ReportTemplate.get(report_template_id).success(function(reportTemplate) {
               $scope.reportTemplate = reportTemplate;
@@ -79,6 +55,30 @@ angular.module('ReportIt.report_template.controllers').
         ReportTemplate.save($scope.reportTemplate).success(function(result) {
             window.location.href = result.redirectUrl;
           });
+      };
+      
+      self.setSelectedOrganizations = function() {
+        $scope.reportTemplate.organizations = _.reject(_.map($scope.organizations, function(o) {
+          if (o.associated) {
+            return o._id;
+          }
+          return null;
+        }), function(id) { return id == null; });
+      };
+      
+      self.loadOrganizationsAndSnippets = function() {
+        ReportTemplate.organizations().success(function(organizations) {
+          $scope.organizations = organizations;
+          if ($scope.reportTemplate._id) {
+            _.each($scope.organizations, function(o) {
+              o.associated = _.contains($scope.reportTemplate.organizations, o._id);
+            });
+          }
+          }).then(function() {
+            ReportTemplate.snippets().success(function(snippets) {
+              $scope.snippets = snippets;
+          });
+        });
       };
     }
 ]);

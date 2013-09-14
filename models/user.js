@@ -14,7 +14,7 @@ User.methods.validatePassword = function(suppliedPassword) {
   return password.validateHash(this.hashed_password, suppliedPassword);
 };
 
-User.methods.fullName = function() {
+User.methods.full_name = function() {
   return this.firstName + " " + this.lastName;
 }
 

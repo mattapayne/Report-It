@@ -1,0 +1,44 @@
+div.panel.panel-default
+    div.panel-heading Report Information
+    div.panel-body
+        div.form-horizontal
+            div.row
+                div.col-lg-12
+                    label(for='report_name').control-label Report Name
+            div.row
+                div.col-lg-12
+                    input(type='text', name='report_name', id='report_name', ng-model='report.name'
+                        placeholder='Name this report').form-control #{report.name}
+            div.row
+                div.col-lg-12
+                    label(for='report_template') Use Report Template
+            div.row
+                div.col-lg-12
+                    select(id='report_template',
+                    ng-model='report.report_template',
+                    ng-options='t._id as t.name for t in reportTemplates',
+                    ng-change='useReportTemplate()').form-control
+            div.row
+                div.col-lg-12
+                    label(for='client') Client
+            div.row
+                div.col-lg-12
+                    input(type='text', id='client', ng-model='report.client', placeholder='Client name').form-control
+            div.row
+                div.col-lg-12
+                    label(for='report_description').control-label Description
+            div.row
+                div.col-lg-12
+                    textarea(id='report_description', name='report_description', rows='6', ng-model='report.description').form-control
+            div.row#organizations-select
+                div.col-lg-12
+                    div.panel.panel-default
+                        div.panel-heading Organization(s)
+                        div.panel-body
+                            div#organizations(ng-repeat='o in organizations')
+                                div.checkbox
+                                    label {{ o.name }}
+                                        input(type='checkbox', checked='o.associated', ng-model='o.associated' id='organization_{{ o._id }}')
+            div.row
+                div.col-lg-12.top-margin5
+                    button(ng-disabled='isFormInvalid()', ng-click='save()').btn.btn-success.form-control Save

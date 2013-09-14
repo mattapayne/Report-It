@@ -17,20 +17,20 @@ angular.module('ReportIt.dashboard.controllers').
             $scope.snippetsBeingEdited[index] = angular.copy(snippet);
         };
         
+        self.stopManagingSnippet = function(index) {
+            $scope.snippetsBeingDeleted =
+                        _.reject($scope.snippetsBeingDeleted, function(num) {
+                            return num === index
+                    });
+        };
+        
         //since there is no 'finally' construct in Angular's promise returned by $http, we have to duplicate some code.
-        //TODO - Refactor duplicated code into function
         self.deleteSnippet = function(index, snippet) {
             Snippet.destroy(snippet).success(function() {
                     $scope.snippets.splice(index, 1);
-                    $scope.snippetsBeingDeleted =
-                        _.reject($scope.snippetsBeingDeleted, function(num) {
-                            return num === index
-                    });
+                    self.stopManagingSnippet(index);
                 }).error(function() {
-                    $scope.snippetsBeingDeleted =
-                        _.reject($scope.snippetsBeingDeleted, function(num) {
-                            return num === index
-                    });
+                    self.stopManagingSnippet(index);
                 });
         };
         

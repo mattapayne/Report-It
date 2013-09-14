@@ -55,17 +55,11 @@ exports.add = function(req, res) {
         name: '', description: '', content: '', _id: ''
         },
     title: 'Report-It :: Add Report Template',
-    breadcrumbText: 'Create Report Template'
+    breadcrumbText: 'Add Report Template'
   });
 }
 
 exports.update = function(req, res) {
-  var hash = {
-    name: req.body.template_name,
-    description: req.body.template_description,
-    content: req.body.report_template_content
-  }
-    
   ReportTemplate.findById(req.params.id, function(err, template) {
     if (err) {
       res.send(404, errorParser.parse(err));

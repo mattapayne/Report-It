@@ -31,6 +31,12 @@ Router.prototype.init = function() {
   
   app.all('/reports/*', mustBeLoggedIn);
   app.get('/reports', reports.index);
+  app.get('/reports/add', reports.add);
+  app.get('/reports/edit/:id', reports.edit);
+  app.get('/reports/:id', reports.get);
+  app.post('/reports/create', reports.create);
+  app.delete('/reports/destroy/:id', reports.destroy);
+  app.put('/reports/update/:id', reports.update);
   
   app.all('/report_templates/*', mustBeLoggedIn);
   app.get('/report_templates', report_templates.index);

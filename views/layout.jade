@@ -49,9 +49,11 @@ html
             if logged_in
               ul.nav.navbar-nav.navbar-right
                 li
+                  a Hi, #{ current_user.full_name() }
+                li
                   include common/_session_time_remaining
                 li
-                  a(href='/logout') Logout
+                  a(href='/logout') Logout  
                 li
                   if active_tab !== 'dashboard'
                     a(href='/dashboard') Dashboard

@@ -13,28 +13,28 @@ block head-js
     script(type='text/javascript', src='/lib/redactor/plugins/fullscreen/fullscreen.js')
     script(type='text/javascript', src='/javascripts/angular_common/global_errors.js')
     script(type='text/javascript', src='/javascripts/angular_common/custom_directives.js')
-    script(type='text/javascript', src='/javascripts/report_templates/report_template_app.js')
-    script(type='text/javascript', src='/javascripts/report_templates/service.js')
-    script(type='text/javascript', src='/javascripts/report_templates/controller.js')
+    script(type='text/javascript', src='/javascripts/reports/report_app.js')
+    script(type='text/javascript', src='/javascripts/reports/service.js')
+    script(type='text/javascript', src='/javascripts/reports/controller.js')
 
 block content
-    div(ng-app='ReportIt.report_template', ng-controller='ReportTemplateController', ng-init="init('#{report_template._id}')")
+    div(ng-app='ReportIt.report', ng-controller='ReportController', ng-init="init('#{report._id}')")
         div(app-messages).messagesList
         ol.breadcrumb
             li
                 a(href='/dashboard') Dashboard
             li.active #{ breadcrumbText }
         div(ng-hide='requirementsMessagesEmpty()').alert.alert-danger
-            div You cannot save this template yet ...
+            div You cannot save this report yet ...
             div(ng-repeat='message in requirementMessages') {{ message }}
         div(ng-show='requirementsMessagesEmpty()')
-            div.alert.alert-success You can save this template!
+            div.alert.alert-success You can save this report!
         div.row
           div.col-md-2
               div.row
-                  include _report_template_settings
+                  include _report_settings
           div.col-md-10
-              textarea(ng-model='reportTemplate.content', redactor options='redactorOptions', name='content')
+              textarea(ng-model='report.content', redactor options='redactorOptions', name='content')
         div#clipsmodal.hidden
             div.snippets
                 div(ng-repeat='snippet in snippets').snippet

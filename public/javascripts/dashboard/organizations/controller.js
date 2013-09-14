@@ -11,28 +11,6 @@ angular.module('ReportIt.dashboard.controllers').
            $scope.organizations = organizations; 
         });
         
-        self.backupOrganization = function(index) {
-            var organization = $scope.organizations[index];
-            $scope.organizationsBeingEdited[index] = angular.copy(organization);
-        };
-        
-        //since there is no 'finally' construct in Angular's promise returned by $http, we have to duplicate some code.
-        //TODO - Refactor duplicated code into function
-        self.deleteOrganization = function(index, organization) {
-            Organization.destroy(organization).success(function() {
-                $scope.organizations.splice(index, 1);
-                $scope.organizationsBeingDeleted =
-                    _.reject($scope.organizationsBeingDeleted, function(num) {
-                        return num === index
-                });
-                }).error(function() {
-                    $scope.organizationsBeingDeleted =
-                        _.reject($scope.organizationsBeingDeleted, function(num) {
-                            return num === index
-                    });
-                });
-        };
-        
         $scope.edit = function(index) {
             self.backupOrganization(index);
         };
@@ -92,6 +70,28 @@ angular.module('ReportIt.dashboard.controllers').
                 $scope.organizations.push(org);
                 $scope.stopAdd();
             });
+        };
+
+        self.backupOrganization = function(index) {
+            var organization = $scope.organizations[index];
+            $scope.organizationsBeingEdited[index] = angular.copy(organization);
+        };
+        
+        self.stopManagingOrganization = function(index) {
+            $scope.organizationsBeingDeleted =
+                    _.reject($scope.organizationsBeingDeleted, function(num) {
+                        return num === index
+                });
+        };
+        
+        //since there is no 'finally' construct in Angular's promise returned by $http, we have to duplicate some code.
+        self.deleteOrganization = function(index, organization) {
+            Organization.destroy(organization).success(function() {
+                $scope.organizations.splice(index, 1);
+                self.stopManagingOrganization(index);
+                }).error(function() {
+                    self.stopManagingOrganization(index);
+                });
         };
     }]
 );
