@@ -73,6 +73,9 @@ exports.update = function(req, res) {
       report.client = req.body.client;
       report_template: req.body.report_template
       
+      //TODO - extract image urls from the content of the report so we can track them.
+      //Also, if there are images that no longer are needed, remove them from persistent storage.
+      
       report.save(function(err) {
         if (err) {
           res.send(406, errorParser.parse(err));
@@ -97,7 +100,8 @@ exports.create = function(req, res) {
     client: req.body.client,
     report_template: req.body.report_template
   }
-    
+  
+  //TODO - extract image urls from the content of the report so we can track them.
   var report = new Report(hash);
     
   report.save(function(err, data) {

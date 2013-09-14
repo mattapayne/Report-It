@@ -71,6 +71,8 @@ exports.update = function(req, res) {
       template.modified = Date.now();
       template.organizations = req.body.organizations;
       template.client = req.body.client;
+      //TODO - extract image urls from the content of the report so we can track them.
+      //Also, if there are images that no longer are needed, remove them from persistent storage.
       
       template.save(function(err) {
         if (err) {
@@ -95,7 +97,8 @@ exports.create = function(req, res) {
     organizations: req.body.organizations,
     client: req.body.client
   }
-    
+  
+  //TODO - extract image urls from the content of the report so we can track them.
   var reportTemplate = new ReportTemplate(hash);
     
   reportTemplate.save(function(err, data) {

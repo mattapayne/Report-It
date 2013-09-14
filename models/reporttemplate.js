@@ -10,7 +10,8 @@ var ReportTemplate = new Schema({
   created_by: {type: ObjectId, required: true},
   created: { type: Date, required: true, default: Date.now },
   modified: { type: Date, required: false },
-  organizations: [{ type: ObjectId, ref: 'organizations'}]
+  organizations: [{ type: ObjectId, ref: 'organizations'}],
+  image_urls: [{type: String}]
 });
 
 module.exports = mongoose.model('ReportTemplate', ReportTemplate);

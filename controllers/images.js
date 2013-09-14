@@ -36,11 +36,9 @@ function createBucket(res, destination_bucket, fileName, data) {
 }
 
 function saveLocally(fs, res, fileName, data) {
-  
   var folder = ReportIt.rootDirectory + '/public/uploads';
   var path = folder + '/' + fileName;
   var relativePath = '/uploads/' + fileName;
-  
   mkdirp(folder, function(err) {
     if (err) {
       res.send(500);
@@ -60,11 +58,10 @@ function saveLocally(fs, res, fileName, data) {
   });
 }
 
+//TODO - Scale images appropriately
 exports.upload = function(req, res) {
-
   var bucketName = ReportIt.app.get('config').aws.bucket_name;
   var fileName = uuid.v4();
-  
   fs.readFile(req.files.file.path, function(err, data) {
       if (err) {
         res.send(500);
