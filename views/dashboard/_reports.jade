@@ -9,6 +9,14 @@ div.panel.panel-default
                         span {{report.name}} &nbsp;&nbsp;
                         span ({{ report.client || 'No client' }})
                         div.pull-right
+                            div.btn-group
+                                button(type='button', data-toggle='dropdown').btn.btn-default.dropdown-toggle Export 
+                                    span.caret
+                                ul.dropdown-menu
+                                    li
+                                        a(href='/export/word/report/{{ report._id}}') Export to Word
+                                    li
+                                        a(href='/export/pdf/report/{{ report._id}}') Export to PDF
                             a(href='/reports/edit/{{report._id}}', title='Edit this report').btn.btn-default Edit
                             a(ng-click='destroy($index)', ng-disabled='deleting($index)', title='Delete this report').btn.btn-danger Delete
                         div.clearfix

@@ -7,6 +7,7 @@ var main = require('./main.js'),
   organizations = require('./organizations.js'),
   snippets = require('./snippets.js'),
   images = require('./images.js'),
+  exp = require('./export.js')
   ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn,
   ensureLoggedOut = require('connect-ensure-login').ensureLoggedOut;
 
@@ -28,6 +29,8 @@ Router.prototype.init = function() {
   app.post('/register/process', mustNotBeLoggedIn, reg.processRegistration);
   
   app.get('/dashboard', mustBeLoggedIn, dash.index);
+  
+  app.get('/export/:format/:type/:id', mustBeLoggedIn, exp.word);
   
   app.all('/reports/*', mustBeLoggedIn);
   app.get('/reports', reports.index);

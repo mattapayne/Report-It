@@ -9,6 +9,14 @@ div.panel.panel-default
                         span {{template.name}} &nbsp;&nbsp;
                         span ({{ template.client || 'No client' }})
                         div.pull-right
+                            div.btn-group
+                                button(type='button', data-toggle='dropdown').btn.btn-default.dropdown-toggle Export 
+                                    span.caret
+                                ul.dropdown-menu
+                                    li
+                                        a(href='/export/word/template/{{ template._id}}') Export to Word
+                                    li
+                                        a(href='/export/pdf/template/{{ template._id}}') Export to PDF
                             a(href='/report_templates/edit/{{template._id}}', title='Edit this template').btn.btn-default Edit
                             a(ng-click='destroy($index)', ng-disabled='deleting($index)', title='Delete this template').btn.btn-danger Delete
                         div.clearfix
