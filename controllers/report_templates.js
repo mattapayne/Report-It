@@ -4,7 +4,7 @@ var ReportTemplate = ReportIt.models('ReportTemplate');
 exports.index = function(req, res) {
   ReportTemplate.find({ created_by: req.user._id }, function(err, docs) {
     if(err) {
-      res.send(404);
+      res.send(404, errorParser.parse(err));
     }
     else {
       res.json(docs);
@@ -15,7 +15,7 @@ exports.index = function(req, res) {
 exports.get = function(req, res) {
   ReportTemplate.findById(req.params.id, function(err, templ) {
     if(err) {
-      res.send(404);
+      res.send(404, errorParser.parse(err));
     }
     else {
       res.json(templ);
@@ -26,7 +26,7 @@ exports.get = function(req, res) {
 exports.edit = function(req, res) {
   ReportTemplate.findById(req.params.id, function(err, templ) {
     if(err) {
-      res.send(404);
+      res.send(404, errorParser.parse(err));
     }
     else {
       res.render('report_templates/report_template', {
@@ -41,7 +41,7 @@ exports.edit = function(req, res) {
 exports.destroy = function(req, res) {
   ReportTemplate.remove({_id: req.params.id}, function(err) {
     if(err) {
-      res.send(400, errorParser.parse(err));
+      res.send(404, errorParser.parse(err));
     }
     else {
       res.send(200);
@@ -68,7 +68,7 @@ exports.update = function(req, res) {
     
   ReportTemplate.findById(req.params.id, function(err, template) {
     if (err) {
-      res.send(406, errorParser.parse(err));
+      res.send(404, errorParser.parse(err));
     }
     else {
       template.name = req.body.name;
