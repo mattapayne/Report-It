@@ -44,15 +44,15 @@ body {
   max-height: 300px;
   overflow-y: auto;
 }
-#user-actions ul {
+.user-actions ul {
   list-style-type: none;
 }
-#user-actions ul li {
+.user-actions ul li {
   padding: 5px;
   border-bottom: 1px solid #dcdcdc;
 }
-#user-actions ul span,
-#user-actions ul a {
+.user-actions ul span,
+.user-actions ul a {
   margin-right: 2px;
 }
 #snippets-container .snippet {

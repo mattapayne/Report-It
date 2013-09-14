@@ -1,0 +1,22 @@
+div.panel.panel-default
+    div.panel-heading Settings
+    div.panel-body
+        div(ng-controller='SettingsController').container
+            div#settings-container
+                ul
+                    li(ng-repeat="setting in settings | orderBy:key:false")
+                        span {{setting.key}} = {{ setting.value || 'Not set' }}
+                        div.pull-right
+                            a(ng-click='edit($index)', title='Edit this setting', ng-disabled='deleting($index) || adding', ng-hide='editing($index)').btn.btn-default Edit
+                        div.clearfix
+                        div(ng-show='editing($index)').spacer5
+                            div.panel.panel-default
+                                div.panel-heading Edit Setting
+                                    <button type="button" class="close" aria-hidden="true" ng-click='cancelEditing($index)', title='Cancel editing'>&times;</button>
+                                div.panel-body
+                                    div.form-group
+                                        input(type='text', name='value', id='value', placeholder='Value', ng-model='setting.value').form-control
+                                    div.form-group
+                                        div.pull-right
+                                            a(ng-click='update($index)').btn.btn-success.btn-xs Update
+                        div.clearfix

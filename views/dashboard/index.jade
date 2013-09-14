@@ -11,15 +11,18 @@ block head-js
   script(type='text/javascript', src='/javascripts/dashboard/report_templates/controller.js')
   script(type='text/javascript', src='/javascripts/dashboard/reports/service.js')
   script(type='text/javascript', src='/javascripts/dashboard/reports/controller.js')
+  script(type='text/javascript', src='/javascripts/dashboard/settings/service.js')
+  script(type='text/javascript', src='/javascripts/dashboard/settings/controller.js')
 
 block content
   div(ng-app='ReportIt.dashboard')
     div(app-messages).messagesList
-    div#user-actions.row
+    div.user-actions.row
       div.col-md-6
         include _reports
         include _report_templates
       div.col-md-6
         include _snippets
         include _organizations
+        include _settings
 block foot-js

@@ -49,7 +49,7 @@ html
             if logged_in
               ul.nav.navbar-nav.navbar-right
                 li
-                  a Hi, #{ current_user.full_name() }
+                  a Hi, #{ current_user.get('full_name') }
                 li
                   include common/_session_time_remaining
                 li

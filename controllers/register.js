@@ -1,18 +1,16 @@
-var passwordUtil = require('../utility/password.js');
-    
+var User = ReportIt.models('User');
+  
 exports.processRegistration = function processRegistration(req, res) {
-    
-  var User = ReportIt.models('User');
   var password = req.body.password;
   
   var hash = {
     firstName: req.body.firstname,
     lastName: req.body.lastname,
-    email: req.body.email,
-    hashed_password: passwordUtil.createHash(password)
+    email: req.body.email
   };
   
   var user = new User(hash);
+  user.set('password', password);
   
   user.save(function(err, data) {
     if(err) { //TODO - change this to re-render register page with errors

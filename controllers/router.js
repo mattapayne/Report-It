@@ -32,6 +32,14 @@ Router.prototype.init = function() {
   
   app.get('/export/:format/:type/:id', mustBeLoggedIn, exp.word);
   
+  app.all('/settings/*', mustBeLoggedIn);
+  app.get('/settings', function(req, res) {
+    res.json(req.user.settings)
+  });
+  app.put('/settings/update/:id', function(req, res) {
+    res.send(200);  
+  });
+  
   app.all('/reports/*', mustBeLoggedIn);
   app.get('/reports', reports.index);
   app.get('/reports/add', reports.add);
