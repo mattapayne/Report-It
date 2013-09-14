@@ -32,7 +32,6 @@ function boot() {
   
   //set current user so views, etc. have access
   ReportIt.app.use(function(req, res, next) {
-    console.log(req.user);
     res.locals.current_user = req.user;
     res.locals.logged_in = req.user != null;
     var now = Date.now();
