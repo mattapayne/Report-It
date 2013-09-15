@@ -19,7 +19,7 @@ div.panel.panel-default
                                     div.form-group
                                         input(type='text', name='name', id='name', placeholder='Snippet name', ng-model='snippet.name').form-control
                                     div.form-group    
-                                        textarea(name='content', id='content', placeholder='Snippet content', rows='4', ng-model='snippet.content').form-control
+                                        textarea(name='content', id='content', placeholder='Snippet content', rows='4', ng-model='snippet.content', redactor options='redactorOptions').form-control
                                     div.form-group
                                         div.pull-right
                                             a(ng-click='update($index)', title='Update this snippet').btn.btn-success.btn-xs Update
@@ -32,7 +32,7 @@ div.panel.panel-default
                                 div.form-group
                                     input(type='text', name='name', id='name', placeholder='Snippet name', ng-model='snippetName').form-control
                                 div.form-group    
-                                    textarea(name='content', id='content', placeholder='Snippet content', rows='4', ng-model='snippetContent').form-control
+                                    textarea(name='content', id='content', placeholder='Snippet content', rows='4', ng-model='snippetContent', redactor options='redactorOptions').form-control
                                 div.form-group
                                     div.pull-right
                                         a(ng-click='create()').btn.btn-success.btn-xs Create

@@ -39,6 +39,6 @@ block content
             div.snippets
                 div(ng-repeat='snippet in snippets').snippet
                     a(href='').redactor_clip_link {{ snippet.name }}
-                    pre {{ snippet.content }}
+                    div.hidden(ng-bind-html-unsafe='snippet.content')
         
         

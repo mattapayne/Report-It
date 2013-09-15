@@ -37,8 +37,9 @@ block content
               textarea(ng-model='reportTemplate.content', redactor options='redactorOptions', name='content')
         div#clipsmodal.hidden
             div.snippets
-                div(ng-repeat='snippet in snippets').snippet
-                    a(href='').redactor_clip_link {{ snippet.name }}
-                    pre {{ snippet.content }}
+                ul
+                    li(ng-repeat='snippet in snippets').snippet
+                        a(href='').redactor_clip_link {{ snippet.name }}
+                        div.hidden(ng-bind-html-unsafe='snippet.content')
         
         

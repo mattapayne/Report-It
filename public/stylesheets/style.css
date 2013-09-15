@@ -56,7 +56,7 @@ body {
   margin-right: 2px;
 }
 #snippets-container .snippet {
-  margin-bottom: 5px;
+  margin: 5px;
 }
 #snippets-container .snippet-content {
   padding: 5px;

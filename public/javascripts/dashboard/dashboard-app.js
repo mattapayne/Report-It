@@ -4,4 +4,4 @@ angular.module('ReportIt.dashboard.controllers', []);
 angular.module('ReportIt.dashboard',
                ['ReportIt.dashboard.services',
                 'ReportIt.dashboard.controllers',
-                'ngSanitize', 'globalErrors']);
+                'ngSanitize', 'globalErrors', 'angular-redactor']);

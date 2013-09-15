@@ -1,7 +1,15 @@
 extends ../layout
 
+block head-css
+  link(rel='stylesheet', href='/lib/redactor/redactor.css')
+
 block head-js
+  script(type='text/javascript', src='/lib/redactor/redactor.js')
+  script(type='text/javascript', src='/lib/redactor/plugins/fontsize/fontsize.js')
+  script(type='text/javascript', src='/lib/redactor/plugins/fontcolor/fontcolor.js')
+  script(type='text/javascript', src='/lib/redactor/plugins/fontfamily/fontfamily.js')
   script(type='text/javascript', src='/javascripts/angular_common/global_errors.js')
+  script(type='text/javascript', src='/javascripts/angular_common/custom_directives.js')
   script(type='text/javascript', src='/javascripts/dashboard/dashboard-app.js')
   script(type='text/javascript', src='/javascripts/dashboard/organizations/controller.js')
   script(type='text/javascript', src='/javascripts/dashboard/organizations/service.js')

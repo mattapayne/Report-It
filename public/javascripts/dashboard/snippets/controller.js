@@ -8,6 +8,13 @@ angular.module('ReportIt.dashboard.controllers').
         $scope.snippetContent = "";
         $scope.snippets = [];
         
+        $scope.redactorOptions = {
+            linebreaks: true,
+            paragraphy: false,
+            minHeight: 200,
+            plugins: ['fontsize', 'fontfamily', 'fontcolor', 'fullscreen']
+        };
+        
         Snippet.all().success(function(snippets) {
            $scope.snippets = snippets; 
         });
