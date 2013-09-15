@@ -4,7 +4,8 @@
         "aws" : {
             "access_key_id" : "",
             "secret_access_key" : "",
-            "bucket_name" : ""
+            "bucket_name" : "",
+            "region": ""
         }
     },
     "test" : {
@@ -12,7 +13,8 @@
         "aws" : {
             "access_key_id" : "",
             "secret_access_key" : "",
-            "bucket_name" : ""
+            "bucket_name" : "",
+            "region": ""
         }
     },
     "production" : {
@@ -20,7 +22,8 @@
         "aws" : {
             "access_key_id" : "",
             "secret_access_key" : "",
-            "bucket_name" : ""
+            "bucket_name" : "",
+            "region": ""
         }
     }
 }

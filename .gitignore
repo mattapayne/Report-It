@@ -14,3 +14,6 @@ results
  
 node_modules
 npm-debug.log
+convert.exe
+identify.exe
+ImageMagick.exe

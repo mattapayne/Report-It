@@ -17,6 +17,8 @@
     "aws-sdk": "1.5.2",
     "node-uuid": "1.4.1",
     "mkdirp": "0.3.5",
-    "mime": "1.2.11"
+    "mime": "1.2.11",
+    "uploadfs": "0.3.14",
+    "underscore": "1.5.2"
   }
 }
