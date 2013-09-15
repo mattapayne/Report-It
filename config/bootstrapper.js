@@ -3,10 +3,13 @@ var path = require('path'),
     express = require('express'),
     passport = require('passport'),
     config = require('./config.json'),
+    sessionFixer = require('../middleware/fixsession.js'),
     passportConfig = require('./passportConfig.js'),
     modelRegistrar = require('./modelsSetup.js'),
     dataStoreConfig = require('./dataStoreConfig.js'),
     simpleStorageConfig = require('./simpleStorageConfig.js');
+
+var SESSION_LENGTH = (60 * 60 * 1000) // 1 minute
 
 function boot() {
 
@@ -23,21 +26,19 @@ function boot() {
   ReportIt.app.use(express.methodOverride());
   ReportIt.app.use(express.cookieParser('monkeybutler'));
   ReportIt.app.use(express.session({cookie: {
-                                        maxAge: Date.now() + (30 * 60 * 1000),
-                                        expires: new Date(Date.now() + (30 * 60 * 1000)) 
+                                        maxAge: Date.now() + SESSION_LENGTH,
+                                        expires: new Date(Date.now() + SESSION_LENGTH) 
                                       }}));
   ReportIt.app.use(flash());
   ReportIt.app.use(passport.initialize());
   ReportIt.app.use(passport.session());
+  ReportIt.app.use(sessionFixer);
   
-  //set current user so views, etc. have access
+  //set current user so views, etc. have access TODO -- Move this into a custom middleware module.
   ReportIt.app.use(function(req, res, next) {
     res.locals.current_user = req.user;
     res.locals.logged_in = req.user != null;
-    var now = Date.now();
-    var expires = req.session.cookie.expires;
-    var session_length = Math.abs(expires - now);
-    res.locals.session_length = session_length;
+    res.locals.session_length = SESSION_LENGTH;
     next();
   });
   
