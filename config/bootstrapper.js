@@ -7,7 +7,8 @@ var path = require('path'),
     passportConfig = require('./passportConfig.js'),
     modelRegistrar = require('./modelsSetup.js'),
     dataStoreConfig = require('./dataStoreConfig.js'),
-    simpleStorageConfig = require('./simpleStorageConfig.js');
+    simpleStorageConfig = require('./simpleStorageConfig.js'),
+    MongoStore = require('connect-mongo')(express);
 
 var SESSION_LENGTH = (60 * 60 * 1000) // 1 minute
 
@@ -15,7 +16,9 @@ function boot() {
 
   ReportIt.app = express();
   
-  ReportIt.app.set('config', config[ReportIt.app.get('env')]);
+  var currentConfig = config[ReportIt.app.get('env')];
+    
+  ReportIt.app.set('config', currentConfig);
   ReportIt.app.set('port', process.env.PORT || 3000);
   ReportIt.app.set('views', ReportIt.rootDirectory + '/views');
   ReportIt.app.set('view engine', 'jade');
@@ -26,9 +29,9 @@ function boot() {
   ReportIt.app.use(express.methodOverride());
   ReportIt.app.use(express.cookieParser('monkeybutler'));
   ReportIt.app.use(express.session({cookie: {
-                                        maxAge: Date.now() + SESSION_LENGTH,
-                                        expires: new Date(Date.now() + SESSION_LENGTH) 
-                                      }}));
+                                      maxAge: Date.now() + SESSION_LENGTH,
+                                      expires: new Date(Date.now() + SESSION_LENGTH) },
+                                      store: new MongoStore({ db: currentConfig.mongodb_session_store })}));
   ReportIt.app.use(flash());
   ReportIt.app.use(passport.initialize());
   ReportIt.app.use(passport.session());

@@ -19,6 +19,7 @@
     "mkdirp": "0.3.5",
     "mime": "1.2.11",
     "uploadfs": "0.3.14",
-    "underscore": "1.5.2"
+    "underscore": "1.5.2",
+    "connect-mongo": "0.3.3"
   }
 }

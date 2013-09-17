@@ -4,26 +4,26 @@
         "aws" : {
             "access_key_id" : "",
             "secret_access_key" : "",
-            "bucket_name" : "bucketnamedev",
-            "region": "us-west-2"
-        }
+            "bucket_name" : "bucketnamedev"
+        },
+        "mongodb_session_store": "reportitdevsessions"
     },
     "test" : {
         "mongodb" : "mongodb://127.0.0.1/report_it_test",
         "aws" : {
             "access_key_id" : "",
             "secret_access_key" : "",
-            "bucket_name" : "bucketnametest",
-            "region": "us-west-2"
-        }
+            "bucket_name" : "bucketnametest"
+        },
+        "mongodb_session_store": "reportittestsessions"
     },
     "production" : {
         "mongodb" : "mongodb://127.0.0.1/report_it_prod",
         "aws" : {
             "access_key_id" : "",
             "secret_access_key" : "",
-            "bucket_name" : "bucketnameproduction",
-            "region": "us-west-2"
+            "bucket_name" : "bucketnameproduction"
+            "mongodb_session_store": "reportitprodsessions"
         }
     }
 }
