@@ -2,14 +2,18 @@ var errorParser = require('../utility/mongoose_error_parser.js');
 var Report = ReportIt.models('Report');
 
 exports.index = function(req, res) {
-  Report.find({ created_by: req.user._id }, function(err, docs) {
+  var callback = function(err, docs) {
     if(err) {
       res.send(404, errorParser.parse(err));
     }
     else {
       res.json(docs);
     }
-  });
+  };
+  
+  var query = Report.find({ created_by: req.user._id});
+  query.select('_id name client');
+  query.exec(callback);
 }
 
 exports.get = function(req, res) {
