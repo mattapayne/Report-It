@@ -4,8 +4,8 @@
         "aws" : {
             "access_key_id" : "",
             "secret_access_key" : "",
-            "bucket_name" : "",
-            "region": ""
+            "bucket_name" : "bucketnamedev",
+            "region": "us-west-2"
         }
     },
     "test" : {
@@ -13,8 +13,8 @@
         "aws" : {
             "access_key_id" : "",
             "secret_access_key" : "",
-            "bucket_name" : "",
-            "region": ""
+            "bucket_name" : "bucketnametest",
+            "region": "us-west-2"
         }
     },
     "production" : {
@@ -22,8 +22,8 @@
         "aws" : {
             "access_key_id" : "",
             "secret_access_key" : "",
-            "bucket_name" : "",
-            "region": ""
+            "bucket_name" : "bucketnameproduction",
+            "region": "us-west-2"
         }
     }
 }
