@@ -4,6 +4,7 @@ angular.module('ReportIt.dashboard.controllers').
         $scope.organizationsBeingEdited = {};
         $scope.organizationsBeingDeleted = [];
         $scope.adding = false;
+        $scope.currentInvitations = {};
         $scope.organizationName = "";
         $scope.organizations = [];
         
@@ -11,12 +12,30 @@ angular.module('ReportIt.dashboard.controllers').
            $scope.organizations = organizations; 
         });
         
+        $scope.newOrganizationIsValid = function() {
+          return $scope.organizationName && $scope.organizationName != '';
+        };
+        
+        $scope.organizationIsValid = function(index) {
+            var organization = $scope.organizations[index];
+            return organization.name && organization.name != '';
+        };
+        
         $scope.edit = function(index) {
             self.backupOrganization(index);
         };
         
+        $scope.invite = function(index) {
+            var organization = $scope.organizations[index];
+            $scope.currentInvitations[index] = angular.copy(organization);
+        };
+        
         $scope.editing = function(index) {
             return index in $scope.organizationsBeingEdited;
+        };
+        
+        $scope.inviting = function(index) {
+            return index in $scope.currentInvitations;
         };
         
         $scope.deleting = function(index) {
@@ -35,6 +54,10 @@ angular.module('ReportIt.dashboard.controllers').
             var original = $scope.organizationsBeingEdited[index];
             $scope.organizations[index] = angular.copy(original);
             delete $scope.organizationsBeingEdited[index];
+        };
+        
+        $scope.stopInviting = function(index) {
+            delete $scope.currentInvitations[index];
         };
         
         $scope.update = function(index) {

@@ -7,7 +7,8 @@ var main = require('./main.js'),
   organizations = require('./organizations.js'),
   snippets = require('./snippets.js'),
   images = require('./images.js'),
-  exp = require('./export.js')
+  exp = require('./export.js'),
+  userSettings = require('./settings.js'),
   ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn,
   ensureLoggedOut = require('connect-ensure-login').ensureLoggedOut;
 
@@ -32,13 +33,9 @@ Router.prototype.init = function() {
   
   app.get('/export/:format/:type/:id', mustBeLoggedIn, exp.word);
   
-  app.all('/settings/*', mustBeLoggedIn);
-  app.get('/settings', function(req, res) {
-    res.json(req.user.settings)
-  });
-  app.put('/settings/update/:id', function(req, res) {
-    res.send(200);  
-  });
+  app.all('/user_settings/*', mustBeLoggedIn);
+  app.get('/user_settings', userSettings.index);
+  app.put('/user_settings/update/:id', userSettings.update);
   
   app.all('/reports/*', mustBeLoggedIn);
   app.get('/reports', reports.index);

@@ -1,3 +1,35 @@
+(function(w, _) {
+    var units = [
+        { label: 'milliseconds', mod: 1000, order: 5 },
+        { label: 'seconds', mod: 60, order: 4 },
+        { label: 'minutes', mod: 60, order: 3 },
+        { label: 'hours', mod: 24, order: 2 },
+        { label: 'days', mod: 7, order: 1 },
+        { label: 'weeks', mod: 52, order: 0 }
+    ];
+    
+    w.friendlyTime = function(milliseconds) {
+        var x = milliseconds;
+        var durations = [];
+        
+        for (var i=0; i < units.length; i++) {
+            var tmp = x % units[i].mod;
+            durations.push({label: units[i].label, value: tmp, order: units[i].order });
+            x = (x - tmp) / units[i].mod;
+        }
+        
+        durations = _.map(_.reject(_.sortBy(durations, function(unit) {
+            return unit.order
+        }), function(unit) {
+            return unit.value <= 0;    
+        }), function(unit) {
+            return unit.value + " " + unit.label;    
+        });
+        
+        return durations.join(', ');
+    }
+})(window, _);
+
 $(function() {
     var countDown = window.session_length;
     var INTERVAL = 1000;
@@ -47,17 +79,14 @@ $(function() {
             return;
         }
         
-        var format = remaining > 60000 ? 'Minutes' : 'Seconds'
-        var obj = moment.duration(remaining, 'milliseconds');
-        
-        var timeRemaining = Math.floor(obj["as" + format]());
+        var timeRemaining = window.friendlyTime(remaining);
         
         $("a#remaining-session-time").
-            text("Time remaining in your session: " + timeRemaining + " " + format.toLowerCase());
+            text("Time remaining in your session: " + timeRemaining);
         
         if (warningDialogVisible) {
             $("#session-timeout-dialog #session-time-remaining").
-                text("Your session will expire in " + timeRemaining + " " + format.toLowerCase() + ".");
+                text("Your session will expire in " + timeRemaining);
         }
     };
     

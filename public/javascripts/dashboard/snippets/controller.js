@@ -19,26 +19,13 @@ angular.module('ReportIt.dashboard.controllers').
            $scope.snippets = snippets; 
         });
         
-        self.backupSnippet = function(index) {
-            var snippet = $scope.snippets[index];
-            $scope.snippetsBeingEdited[index] = angular.copy(snippet);
+        $scope.newSnippetIsValid = function() {
+          return $scope.snippetName && $scope.snippetContent && $scope.snippetName != '' && $scope.snippetContent != '';  
         };
         
-        self.stopManagingSnippet = function(index) {
-            $scope.snippetsBeingDeleted =
-                        _.reject($scope.snippetsBeingDeleted, function(num) {
-                            return num === index
-                    });
-        };
-        
-        //since there is no 'finally' construct in Angular's promise returned by $http, we have to duplicate some code.
-        self.deleteSnippet = function(index, snippet) {
-            Snippet.destroy(snippet).success(function() {
-                    $scope.snippets.splice(index, 1);
-                    self.stopManagingSnippet(index);
-                }).error(function() {
-                    self.stopManagingSnippet(index);
-                });
+        $scope.snippetIsValid = function(index) {
+          var snippet = $scope.snippets[index];
+          return snippet.name && snippet.content && snippet.name != '' && snippet.content != '';  
         };
         
         $scope.edit = function(index) {
@@ -101,6 +88,28 @@ angular.module('ReportIt.dashboard.controllers').
                 $scope.snippets.push(snip);
                 $scope.stopAdd();
             });
+        };
+        
+        self.backupSnippet = function(index) {
+            var snippet = $scope.snippets[index];
+            $scope.snippetsBeingEdited[index] = angular.copy(snippet);
+        };
+        
+        self.stopManagingSnippet = function(index) {
+            $scope.snippetsBeingDeleted =
+                        _.reject($scope.snippetsBeingDeleted, function(num) {
+                            return num === index
+                    });
+        };
+        
+        //since there is no 'finally' construct in Angular's promise returned by $http, we have to duplicate some code.
+        self.deleteSnippet = function(index, snippet) {
+            Snippet.destroy(snippet).success(function() {
+                    $scope.snippets.splice(index, 1);
+                    self.stopManagingSnippet(index);
+                }).error(function() {
+                    self.stopManagingSnippet(index);
+                });
         };
     }]
 );

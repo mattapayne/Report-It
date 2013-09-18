@@ -10,7 +10,7 @@ var path = require('path'),
     simpleStorageConfig = require('./simpleStorageConfig.js'),
     MongoStore = require('connect-mongo')(express);
 
-var SESSION_LENGTH = (60 * 60 * 1000) // 1 minute
+var SESSION_LENGTH = (60 * 60 * 1000) // 60 minutes
 
 function boot() {
 
@@ -29,8 +29,8 @@ function boot() {
   ReportIt.app.use(express.methodOverride());
   ReportIt.app.use(express.cookieParser('monkeybutler'));
   ReportIt.app.use(express.session({cookie: {
-                                      maxAge: Date.now() + SESSION_LENGTH,
-                                      expires: new Date(Date.now() + SESSION_LENGTH) },
+                                      maxAge: SESSION_LENGTH
+                                      },
                                       store: new MongoStore({ db: currentConfig.mongodb_session_store })}));
   ReportIt.app.use(flash());
   ReportIt.app.use(passport.initialize());

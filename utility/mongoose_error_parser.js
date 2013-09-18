@@ -10,3 +10,14 @@ exports.parse = function(err) {
         errors: errors
     };
 };
+
+exports.createError = function(message, propertyName, propertyMessage) {
+  var errors = [
+        { name: propertyName, type: propertyMessage }    
+    ];
+  
+  return {
+    message: message,
+    errors: errors
+  };
+};

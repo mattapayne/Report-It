@@ -1,6 +1,9 @@
 body {
   padding: 20px;
 }
+.required {
+  color: #f00;
+}
 #footer {
   border-radius: 4px;
   padding-top: 5px;
@@ -65,4 +68,10 @@ body {
 }
 #snippets-container .snippet-actual {
   margin-top: 5px;
+}
+.css-form input.ng-invalid.ng-dirty {
+  background-color: #fa787e;
+}
+.css-form input.ng-valid.ng-dirty {
+  background-color: #78fa89;
 }

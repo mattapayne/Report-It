@@ -2,14 +2,15 @@ div.panel.panel-default
     div.panel-heading Organizations
     div.panel-body
         div(ng-controller='OrganizationController').container
-            div#organizations-container
+            div#organizations-container.css-form
                 ul
                     li(ng-hide='organizations.length > 0') You have not created any organizations.
                     li(ng-repeat="organization in organizations | orderBy:name:false")
                         span {{organization.name}}
                         div.pull-right
-                            a(ng-click='edit($index)', title='Edit this organization', ng-disabled='deleting($index) || adding', ng-hide='editing($index)').btn.btn-default Edit
-                            a(ng-click='destroy($index)', title='Delete this organization', ng-disabled='deleting($index) || adding', ng-hide='editing($index)').btn.btn-danger Delete
+                            a(ng-click='invite($index)', title='Invite others to join this organization', ng-disabled='deleting($index) || adding', ng-hide='editing($index) || inviting($index)').btn.btn-default Invite
+                            a(ng-click='edit($index)', title='Edit this organization', ng-disabled='deleting($index) || adding', ng-hide='editing($index) || inviting($index)').btn.btn-default Edit
+                            a(ng-click='destroy($index)', title='Delete this organization', ng-disabled='deleting($index) || adding', ng-hide='editing($index) || inviting($index)').btn.btn-danger Delete
                         div.clearfix
                         div(ng-show='editing($index)').spacer5
                             div.panel.panel-default
@@ -17,10 +18,21 @@ div.panel.panel-default
                                     <button type="button" class="close" aria-hidden="true" ng-click='cancelEditing($index)', title='Cancel editing'>&times;</button>
                                 div.panel-body
                                     div.form-group
-                                        input(type='text', name='name', id='name', placeholder='Organization name', ng-model='organization.name').form-control
+                                        input(type='text', name='name', id='name', placeholder='Organization name', ng-model='organization.name' required).form-control
                                     div.form-group
                                         div.pull-right
-                                            a(ng-click='update($index)').btn.btn-success.btn-xs Update
+                                            a(ng-click='update($index)', ng-disabled='!organizationIsValid($index)').btn.btn-success.btn-xs Update
+                        div.clearfix
+                        div(ng-show='inviting($index)')
+                            div.panel.panel-default
+                                div.panel-heading Invite Others
+                                    <button type="button" class="close" aria-hidden="true" ng-click='stopInviting($index)'>&times;</button>
+                                div.panel-body
+                                    div.form-group
+                                        input(type='text', name='email', id='email', placeholder='Email address', ng-model='inviteEmail' required).form-control
+                                    div.form-group
+                                        div.pull-right
+                                            a(ng-click='invite($index)', title='Invite this person').btn.btn-success.btn-xs Invite
                         div.clearfix
                     li(ng-show='adding')
                         div.panel.panel-default
@@ -28,10 +40,10 @@ div.panel.panel-default
                                  <button type="button" class="close" aria-hidden="true" ng-click='stopAdd()'>&times;</button>
                             div.panel-body
                                 div.form-group
-                                    input(type='text', name='name', id='name', placeholder='Organization name', ng-model='organizationName').form-control
+                                    input(type='text', name='name', id='name', placeholder='Organization name', ng-model='organizationName' required).form-control
                                 div.form-group
                                     div.pull-right
-                                        a(ng-click='create()', title='Create this organization').btn.btn-success.btn-xs Create
+                                        a(ng-click='create()', ng-disabled='!newOrganizationIsValid()' title='Create this organization').btn.btn-success.btn-xs Create
                                 div.form-group &nbsp;
                     div.clearfix
             a(ng-click='startAdd()', ng-hide='adding', title='Add a new organization', ng-hide='editingAny() || adding', title='Cancel add').btn.btn-success.pull-right Add

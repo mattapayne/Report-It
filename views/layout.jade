@@ -8,7 +8,6 @@ html
     script(type='text/javascript', src='/lib/jquery-1.9.1.js')
     script(type='text/javascript', src='/lib/underscore-min.js')
     script(type='text/javascript', src='/lib/bootstrap-3.0.0/dist/js/bootstrap.min.js')
-    script(type='text/javascript', src='/lib/moment.min.js')
     if logged_in
       script(type='text/javascript').
         window.session_length = #{session_length};
@@ -17,56 +16,56 @@ html
       script(type='text/javascript', src='/javascripts/site.js')
     block head-js
   body
-    div.navbar.navbar-inverse.navbar-fixed-top
-      div.navbar-inner
-        div.container
+    div(role='navigation').navbar.navbar-inverse.navbar-fixed-top
+      div.container
+        div.navbar-header
           button(type='button', data-toggle='collapse', data-target='.navbar-collapse').navbar-toggle
             span.icon-bar
             span.icon-bar
             span.icon-bar
           a(href='/').navbar-brand
             img(src='/images/logo.png')
-          div.navbar-collapse.collapse
-            ul.nav.navbar-nav
-              if active_tab === 'home'
-                li.active
-                  a(href='/') Home
-              else
-                li
-                  a(href='/') Home
-              if active_tab === 'about'
-                li.active
-                  a(href='/about') About
-              else
-                li
-                  a(href='/about') About
-              if active_tab === 'contact'
-                li.active
-                  a(href='/contact') Contact
-              else
-                li
-                  a(href='/contact') Contact
-            if logged_in
-              ul.nav.navbar-nav.navbar-right
-                li
-                  a Hi, #{ current_user.get('full_name') }
-                li
-                  include common/_session_time_remaining
-                li
-                  a(href='/logout') Logout  
-                li
-                  if active_tab !== 'dashboard'
-                    a(href='/dashboard') Dashboard
+        div.collapse.navbar-collapse
+          ul.nav.navbar-nav
+            if active_tab === 'home'
+              li.active
+                a(href='/') Home
             else
-              form(action='/login', method='post').navbar-form.navbar-right
-                div.form-group.right-pad
-                  input(type='text', placeholder='Email', name='username').form-control
-                div.form-group.right-pad
-                  input(type='password', placeholder='Password', name='password').form-control
-                button(type='submit').btn.btn-success Sign in
-              ul.nav.navbar-nav.navbar-right
-                li
-                  a(href='/register') Register
+              li
+                a(href='/') Home
+            if active_tab === 'about'
+              li.active
+                a(href='/about') About
+            else
+              li
+                a(href='/about') About
+            if active_tab === 'contact'
+              li.active
+                a(href='/contact') Contact
+            else
+              li
+                a(href='/contact') Contact
+          if logged_in
+            ul.nav.navbar-nav.navbar-right.pull-right
+              li
+                a Hi, #{ current_user.get('full_name') }
+              li
+                include common/_session_time_remaining
+              li
+                a(href='/logout') Logout  
+              li
+                if active_tab !== 'dashboard'
+                  a(href='/dashboard') Dashboard
+          else
+            form(action='/login', method='post').navbar-form.navbar-right
+              div.form-group.right-pad
+                input(type='text', placeholder='Email', name='username').form-control
+              div.form-group.right-pad
+                input(type='password', placeholder='Password', name='password').form-control
+              button(type='submit').btn.btn-success Sign in
+            ul.nav.navbar-nav.navbar-right
+              li
+                a(href='/register') Register
     div.main
       block content
     include common/_footer  

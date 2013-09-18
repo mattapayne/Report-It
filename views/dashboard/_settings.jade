@@ -2,10 +2,10 @@ div.panel.panel-default
     div.panel-heading Settings
     div.panel-body
         div(ng-controller='SettingsController').container
-            div#settings-container
+            div#settings-container.css-form
                 ul
                     li(ng-repeat="setting in settings | orderBy:key:false")
-                        span {{setting.key}} = {{ setting.value || 'Not set' }}
+                        span {{setting.key}} = {{ setting.value || 'Not set' }} ({{ setting.description || 'No description' }})
                         div.pull-right
                             a(ng-click='edit($index)', title='Edit this setting', ng-disabled='deleting($index) || adding', ng-hide='editing($index)').btn.btn-default Edit
                         div.clearfix
@@ -15,8 +15,9 @@ div.panel.panel-default
                                     <button type="button" class="close" aria-hidden="true" ng-click='cancelEditing($index)', title='Cancel editing'>&times;</button>
                                 div.panel-body
                                     div.form-group
-                                        input(type='text', name='value', id='value', placeholder='Value', ng-model='setting.value').form-control
+                                        input(type='text', name='setting_value', id='value', placeholder='Value', ng-model='setting.value' must-be-integer).form-control
+                                        small(ng-hide='valueIsValid($index)').required An integer is required.
                                     div.form-group
                                         div.pull-right
-                                            a(ng-click='update($index)').btn.btn-success.btn-xs Update
+                                            a(ng-click='update($index)', ng-disabled='!valueIsValid($index)').btn.btn-success.btn-xs Update
                         div.clearfix

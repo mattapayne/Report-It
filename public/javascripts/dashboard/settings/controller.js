@@ -1,5 +1,6 @@
 angular.module('ReportIt.dashboard.controllers').
     controller('SettingsController', ['$scope', 'Setting', function($scope, Setting) {
+        var INTEGER_REGEXP = /^\-?\d*$/;
         var self = this;
         $scope.settingsBeingEdited = {};
         $scope.settings = [];
@@ -7,6 +8,19 @@ angular.module('ReportIt.dashboard.controllers').
         Setting.all().success(function(settings) {
            $scope.settings = settings; 
         });
+        
+        $scope.valueIsValid = function(index) {
+            var setting = $scope.settings[index];
+            if (setting.validation_rule) {
+                switch (setting.validation_rule) {
+                    case 'MustBeInteger':
+                        if (INTEGER_REGEXP.test(setting.value) == false) {
+                            return false;
+                        }
+                }
+            }
+            return true;
+        };
         
         $scope.edit = function(index) {
             self.backupSetting(index);

@@ -20,6 +20,7 @@
     "mime": "1.2.11",
     "uploadfs": "0.3.14",
     "underscore": "1.5.2",
-    "connect-mongo": "0.3.3"
+    "connect-mongo": "0.3.3",
+    "iz": "0.3.0"
   }
 }

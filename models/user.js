@@ -3,11 +3,16 @@ var Schema = mongoose.Schema,
     ObjectId = Schema.ObjectId,
     passwordHelper = require('../utility/password.js');
 
-var SettingsKeys = ['image_height', 'image_width'];
+var DefaultSettings = [
+  { key: 'image_height', value: 360, description: 'The height that your uploaded images will be scaled to', validation_rule: 'MustBeInteger' },
+  { key: 'image_width', value: 640, description: 'The width that your uploaded images will be scaled to', validation_rule: 'MustBeInteger'}
+];
 
 var UserSetting = new Schema({
   key: { type: String, required: true, trim: true },
-  value: { type: Schema.Types.Mixed }
+  value: { type: Schema.Types.Mixed },
+  description: { type: String, required: false, trim: true },
+  validation_rule: { type: String, required: false, trim: true }
 });
 
 var User = new Schema({
@@ -19,13 +24,12 @@ var User = new Schema({
 });
 
 User.pre('save', function(next) {
-  var self = this;
-  for (var i=0; i<SettingsKeys.length; i++) {
-    var settings = {
-      key: SettingsKeys[i],
-      value: ''
-    };
-    self.settings.push(settings);
+  var user = this;
+  if (user.isNew) {
+    //default settings
+    for (var i=0; i<DefaultSettings.length; i++) {
+      user.settings.push(DefaultSettings[i]);
+    } 
   }
   next();
 });

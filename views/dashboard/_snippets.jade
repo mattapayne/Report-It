@@ -2,7 +2,7 @@ div.panel.panel-default
     div.panel-heading Snippets
     div.panel-body
         div(ng-controller='SnippetsController').container
-            div#snippets-container
+            div#snippets-container.css-form
                 ul
                     li(ng-hide='snippets.length > 0') You have not created any snippets.
                     li(ng-repeat="snippet in snippets | orderBy:name:false")
@@ -17,12 +17,12 @@ div.panel.panel-default
                                     <button type="button" class="close" aria-hidden="true" ng-click='cancelEditing($index)', title='Cancel editing'>&times;</button>
                                 div.panel-body
                                     div.form-group
-                                        input(type='text', name='name', id='name', placeholder='Snippet name', ng-model='snippet.name').form-control
+                                        input(type='text', name='name', id='name', placeholder='Snippet name', ng-model='snippet.name' required).form-control
                                     div.form-group    
-                                        textarea(name='content', id='content', placeholder='Snippet content', rows='4', ng-model='snippet.content', redactor options='redactorOptions').form-control
+                                        textarea(required name='content', id='content', placeholder='Snippet content', rows='4', ng-model='snippet.content', redactor options='redactorOptions').form-control
                                     div.form-group
                                         div.pull-right
-                                            a(ng-click='update($index)', title='Update this snippet').btn.btn-success.btn-xs Update
+                                            a(ng-click='update($index)', title='Update this snippet', ng-disabled='!snippetIsValid($index)').btn.btn-success.btn-xs Update
                         div.clearfix
                     li(ng-show='adding')
                         div.panel.panel-default
@@ -30,12 +30,12 @@ div.panel.panel-default
                                  <button type="button" class="close" aria-hidden="true" ng-click='stopAdd()', title='Cancel add'>&times;</button>
                             div.panel-body
                                 div.form-group
-                                    input(type='text', name='name', id='name', placeholder='Snippet name', ng-model='snippetName').form-control
+                                    input(type='text', name='name', id='name', placeholder='Snippet name', ng-model='snippetName' required).form-control
                                 div.form-group    
-                                    textarea(name='content', id='content', placeholder='Snippet content', rows='4', ng-model='snippetContent', redactor options='redactorOptions').form-control
+                                    textarea(required name='content', id='content', placeholder='Snippet content', rows='4', ng-model='snippetContent', redactor options='redactorOptions').form-control
                                 div.form-group
                                     div.pull-right
-                                        a(ng-click='create()').btn.btn-success.btn-xs Create
+                                        a(ng-click='create()', ng-disabled='!newSnippetIsValid()').btn.btn-success.btn-xs Create
                                 div.form-group &nbsp;
                     div.clearfix
             a(ng-click='startAdd()', ng-hide='adding', ng-hide='editingAny() || adding', 'Create a new snippet').btn.btn-success.pull-right Add
