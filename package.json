@@ -21,6 +21,7 @@
     "uploadfs": "0.3.14",
     "underscore": "1.5.2",
     "connect-mongo": "0.3.3",
-    "iz": "0.3.0"
+    "iz": "0.3.0",
+    "wkhtmltopdf": "0.1.2"
   }
 }
