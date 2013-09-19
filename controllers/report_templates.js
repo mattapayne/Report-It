@@ -43,12 +43,19 @@ exports.edit = function(req, res) {
 }
 
 exports.destroy = function(req, res) {
-  ReportTemplate.remove({_id: req.params.id}, function(err) {
-    if(err) {
+    ReportTemplate.findById(req.params.id, function(err, template) {
+    if (err) {
       res.send(404, errorParser.parse(err));
     }
     else {
-      res.send(200);
+      template.remove(function(err, tmpl) {
+        if(err) {
+          res.send(404, errorParser.parse(err));
+        }
+        else {
+          res.send(200);
+        }
+      });
     }
   });
 }

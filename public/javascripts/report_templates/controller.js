@@ -14,7 +14,7 @@ angular.module('ReportIt.report_template.controllers').
         minHeight: 550,
         linebreaks: true,
         paragraphy: false,
-        plugins: ['clips', 'fontsize', 'fontfamily', 'fontcolor', 'fullscreen']
+        plugins: ['clips', 'fontsize', 'fontfamily', 'fontcolor', 'fullscreen', 'tableborder']
       };
       
       $scope.$watch('reportTemplate.name', function(newValue, oldValue) {

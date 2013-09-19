@@ -43,12 +43,19 @@ exports.edit = function(req, res) {
 }
 
 exports.destroy = function(req, res) {
-  Report.remove({_id: req.params.id}, function(err) {
-    if(err) {
+  Report.findById(req.params.id, function(err, report) {
+    if (err) {
       res.send(404, errorParser.parse(err));
     }
     else {
-      res.send(200);
+      report.remove(function(err, rpt) {
+        if(err) {
+          res.send(404, errorParser.parse(err));
+        }
+        else {
+          res.send(200);
+        }
+      });
     }
   });
 }

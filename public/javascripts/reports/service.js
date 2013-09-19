@@ -18,6 +18,10 @@ angular.module('ReportIt.report.services').
                     return promise;
                 },
                 
+                getReportTemplate: function(reportTemplateId) {
+                    return $http.get('/report_templates/' + reportTemplateId);
+                },
+                
                 reportTemplates: function() {
                   return $http.get('/report_templates');   
                 },

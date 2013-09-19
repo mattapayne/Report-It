@@ -15,22 +15,19 @@ angular.module('ReportIt.report.controllers').
         minHeight: 550,
         linebreaks: true,
         paragraphy: false,
-        plugins: ['clips', 'fontsize', 'fontfamily', 'fontcolor', 'fullscreen']
+        plugins: ['clips', 'fontsize', 'fontfamily', 'fontcolor', 'fullscreen', 'tableborder']
       };
       
       $scope.useReportTemplate = function() {
-        var template = _.find($scope.reportTemplates, function(t) {
-          return t._id === $scope.report.report_template;
-        });
-        if (template) {
+        Report.getReportTemplate($scope.report.report_template).success(function(template) {
           $scope.report.content = template.content;
           $scope.report.client = template.client;
           if (template.organizations.length > 0) {
             _.each($scope.organizations, function(o) {
-                o.associated = self.isOrganizationAssociatedWithTemplate(o, template);
+              o.associated = self.isOrganizationAssociatedWithTemplate(o, template);
             });
           }
-        }
+        });
       };
       
       $scope.$watch('report.name', function(newValue, oldValue) {

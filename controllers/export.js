@@ -3,21 +3,32 @@ var errorParser = require('../utility/mongoose_error_parser.js'),
     ReportTemplate = ReportIt.models('ReportTemplate'),
     mime = require('mime'),
     wkhtmltopdf = require('wkhtmltopdf'),
+    jade = require('jade'),
     fs = require('fs');
 
 function sendFile(req, res, format, item) {
   var content = item.content;
+  console.log(content);
   var ext = format === 'word' ? ".doc" : ".pdf";
-  if (ext == '.doc') {
-    var name = item.name + ext;
-    var mimeType = mime.lookup(name);
-    res.setHeader('Content-Disposition', 'attachment; filename=' + name);
-    res.setHeader('Content-Type', mimeType);
-    res.send(content);  
-  }
-  else {
-    wkhtmltopdf(item.content).pipe(res);
-  }
+  var name = item.name + ext;
+  var mimeType = mime.lookup(name);
+  var path = ReportIt.rootDirectory + "/views/common/export.jade";
+  
+  jade.renderFile(path, { content: content, title: name }, function(err, html) {
+    if (err) {
+      res.send(400);
+    }
+    else {
+      res.setHeader('Content-Disposition', 'attachment; filename=' + name);
+      res.setHeader('Content-Type', mimeType);
+      if (ext === '.doc') {
+        res.send(200, html);  
+      }
+      else {
+        wkhtmltopdf(html).pipe(res);
+      } 
+    }
+  });
 }
 
 exports.word = function(req, res) {
