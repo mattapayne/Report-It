@@ -51,8 +51,6 @@ html
               li
                 a Hi, #{ current_user.get('full_name') }
               li
-                include common/_session_time_remaining
-              li
                 a(href='/logout') Logout  
               li
                 if active_tab !== 'dashboard'

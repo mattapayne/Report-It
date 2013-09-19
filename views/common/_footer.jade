@@ -1,4 +1,7 @@
 div#footer
     div.container
-    p.muted.credit Created by &nbsp;
-        a(href='http://mattpayne.ca', target='_blank', title='Matt Payne Consulting') Matt Payne Consulting (2013)
+        p.muted.credit Created by &nbsp;
+            a(href='http://mattpayne.ca', target='_blank', title='Matt Payne Consulting') Matt Payne Consulting (2013)
+            if logged_in
+                br
+                include _session_time_remaining
